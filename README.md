@@ -1,5 +1,8 @@
 # StickScrollView
 ![image](https://github.com/WelliJohn/StickScrollView/blob/master/imgs/snapshot2.gif)
+## 使用说明
+compile 'wellijohn.org:stickscrollview:0.0.2'
+另外界面的布局如下所示
 ```
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
