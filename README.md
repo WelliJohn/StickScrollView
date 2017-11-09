@@ -8,6 +8,7 @@
     android:orientation="vertical"
     tools:context="wellijohn.org.scrollviewwithstickview.MainActivity">
 
+    //这个view是用来最外层滚动的view
     <wellijohn.org.stickscrollview.StickViewScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -23,6 +24,8 @@
                 android:layout_height="400dp"
                 android:background="@color/colorPrimaryDark" />
 
+            //这个view是用来铺满屏幕的，外层的View滑动到该View的位置就会停止滑动
+            //如果你的Activity的不是继承AppCompactActivity的话，那么需要对这个view的高度进行重新设置。
             <wellijohn.org.stickscrollview.AutoFillView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -42,6 +45,8 @@
                         tools:tabMode="fixed" />
 
 
+                    //一般我们用ViewPager中嵌套Fragment，Fragment中在嵌套ScrollView，这个时候，如果你想Fragment的内容滚动的话，
+                    //需要在Fragment的根布局中添加ChildScrollView
                     <android.support.v4.view.ViewPager
                         android:id="@+id/vp"
                         android:layout_width="match_parent"
