@@ -8,12 +8,12 @@
 
     <wellijohn.org.stickscrollview.StickViewScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="false">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <LinearLayout
@@ -30,70 +30,27 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <LinearLayout
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/order_manager_tabs"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:background="#BBFFFF"
-                        android:orientation="horizontal">
+                        android:background="#FFFFFF"
+                        tools:tabGravity="fill"
+                        tools:tabMode="fixed" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="tab1" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="tab2" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="tab3" />
-                    </LinearLayout>
-
-                    <wellijohn.org.stickscrollview.ChildScrollView
-                        android:id="@+id/csv"
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/vp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/tv_stick_header"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:text="@string/start" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="300dp"
-                                android:text="@string/middle" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="300dp"
-                                android:text="@string/end" />
-
-                        </LinearLayout>
-                    </wellijohn.org.stickscrollview.ChildScrollView>
 
                 </LinearLayout>
             </wellijohn.org.stickscrollview.AutoFillView>
         </LinearLayout>
 
     </wellijohn.org.stickscrollview.StickViewScrollView>
+
 
 </LinearLayout>

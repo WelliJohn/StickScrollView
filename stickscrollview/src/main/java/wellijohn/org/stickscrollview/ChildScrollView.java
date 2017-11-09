@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.ScrollView;
 
 /**
@@ -13,7 +14,7 @@ import android.widget.ScrollView;
  * @email:
  * @desc:
  */
-public class ChildScrollView extends ScrollView implements View.OnTouchListener {
+public class ChildScrollView extends ScrollView {
 
     private static final String TAG = "MyRecyclerView";
 
@@ -23,6 +24,10 @@ public class ChildScrollView extends ScrollView implements View.OnTouchListener 
     private boolean isScrolledToBottom = false;
 
     private StickViewScrollView mStickViewScrollView;
+
+    private static int minPageSlop;
+
+    private float mLastX;
 
     public ChildScrollView(Context context) {
         this(context, null, 0);
@@ -34,7 +39,7 @@ public class ChildScrollView extends ScrollView implements View.OnTouchListener 
 
     public ChildScrollView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setOnTouchListener(this);
+        setFocusableInTouchMode(false);
         post(new Runnable() {
             @Override
             public void run() {
@@ -45,6 +50,7 @@ public class ChildScrollView extends ScrollView implements View.OnTouchListener 
                 mStickViewScrollView = (StickViewScrollView) tempView.getParent();
             }
         });
+        minPageSlop = ViewConfiguration.get(getContext()).getScaledPagingTouchSlop();
     }
 
     @Override
@@ -76,33 +82,50 @@ public class ChildScrollView extends ScrollView implements View.OnTouchListener 
 
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event) {
         // Disallow the touch request for parent scroll on touch of child view
         int action = event.getAction();
 
         if (action == MotionEvent.ACTION_DOWN) {
+            mLastX = event.getX();
             mLastY = event.getY();
-            v.getParent().requestDisallowInterceptTouchEvent(true);
+            getParent().requestDisallowInterceptTouchEvent(true);
         }
         if (action == MotionEvent.ACTION_MOVE) {
             float nowY = event.getY();
             if (!mStickViewScrollView.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
+                if (Math.abs(event.getX() - mLastX) < minPageSlop) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    return super.onTouchEvent(event);
+                } else {
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                    return false;
+                }
             } else if (mStickViewScrollView.isBottom() && !isScrolledToBottom && nowY - mLastY < 0) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
+                if (Math.abs(event.getX() - mLastX) < minPageSlop) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    return super.onTouchEvent(event);
+                } else {
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                    return false;
+                }
             } else if (mStickViewScrollView.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
+                if (Math.abs(event.getX() - mLastX) < minPageSlop) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    return super.onTouchEvent(event);
+                } else {
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                    return false;
+                }
             } else {
-                v.getParent().requestDisallowInterceptTouchEvent(false);
+                getParent().requestDisallowInterceptTouchEvent(false);
             }
         }
 
         if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
-            v.getParent().requestDisallowInterceptTouchEvent(false);
+            getParent().requestDisallowInterceptTouchEvent(false);
         }
 
-        return false;
-
+        return super.onTouchEvent(event);
     }
-
 }

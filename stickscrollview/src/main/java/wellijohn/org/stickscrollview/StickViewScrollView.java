@@ -36,6 +36,7 @@ public class StickViewScrollView extends ScrollView {
                 mChildScrollView = findChildScrollView(StickViewScrollView.this);
             }
         });
+        setFocusableInTouchMode(false);
     }
 
 
@@ -49,7 +50,10 @@ public class StickViewScrollView extends ScrollView {
                     mChildScrollView = (ChildScrollView) tempView;
                     return mChildScrollView;
                 } else if (tempView instanceof ViewGroup) {
-                    findChildScrollView(tempView);
+                    View view = findChildScrollView(tempView);
+                    if (view != null) {
+                        return (ChildScrollView) view;
+                    }
                 }
             }
         }

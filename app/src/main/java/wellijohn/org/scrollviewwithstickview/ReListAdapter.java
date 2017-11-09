@@ -12,7 +12,7 @@ import android.widget.TextView;
  * @email:
  * @desc:
  */
-class ReListAdapter extends RecyclerView.Adapter<ReListAdapter.ViewHolder> {
+public class ReListAdapter extends RecyclerView.Adapter<ReListAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
