@@ -1,5 +1,5 @@
 # StickScrollView
-![image](https://github.com/WelliJohn/StickScrollView/blob/master/imgs/snapshot.gif)
+![image](https://github.com/WelliJohn/StickScrollView/blob/master/imgs/snapshot2.gif)
 ```
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
