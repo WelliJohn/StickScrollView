@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import wellijohn.org.scrollviewwithstickview.R;
@@ -16,7 +17,7 @@ import wellijohn.org.scrollviewwithstickview.R;
 /**
  * @author: JiangWeiwei
  * @time: 2017/11/9-11:34
- * @email: jiangweiwei@qccr.com
+ * @email:
  * @desc:
  */
 public class TestFragment extends Fragment {
@@ -25,6 +26,7 @@ public class TestFragment extends Fragment {
     float mDownX = 0;
     float mDownY = 0;
     private LinearLayout mLl;
+    private WebView mWebview;
 
     @Nullable
     @Override
@@ -38,7 +40,19 @@ public class TestFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        LinearLayoutManager ll = new LinearLayoutManager(getActivity());
+        WebSettings webSettings = mWebview.getSettings();
+        //设置WebView属性，能够执行Javascript脚本
+        webSettings.setJavaScriptEnabled(true);
+//        mWebview.loadUrl("https://juejin.im/post/5a0e907f6fb9a0452a3be487");
+        mWebview.loadUrl("https://www.baidu.com/");
+        mWebview.post(new Runnable() {
+            @Override
+            public void run() {
+//                Log.d(TAG, "WebView的高度run: " + mWebview.get);
+            }
+        });
+
+//        LinearLayoutManager ll = new LinearLayoutManager(getActivity());
 //        mRv.setLayoutManager(ll);
 //        mRv.setAdapter(new ReListAdapter());
 //        mRv.setOnTouchListener(new View.OnTouchListener() {
@@ -72,6 +86,7 @@ public class TestFragment extends Fragment {
 
     private void initView(View view) {
 //        mRv = (RecyclerView) view.findViewById(R.id.rv);
-        mLl = (LinearLayout) view.findViewById(R.id.ll);
+//        mLl = (LinearLayout) view.findViewById(R.id.ll);
+        mWebview = (NoScrollWebView) view.findViewById(R.id.webview);
     }
 }

@@ -10,7 +10,7 @@ import wellijohn.org.scrollviewwithstickview.fragment.TestFragment;
 /**
  * @author: JiangWeiwei
  * @time: 2017/11/9-11:33
- * @email: jiangweiwei@qccr.com
+ * @email:
  * @desc:
  */
 public class TabFragmentAdapter extends FragmentPagerAdapter {

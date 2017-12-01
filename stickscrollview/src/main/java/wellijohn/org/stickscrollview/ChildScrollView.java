@@ -83,7 +83,7 @@ public class ChildScrollView extends ScrollView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // Disallow the touch request for parent scroll on touch of child view
+        if (mStickViewScrollView == null) return super.onTouchEvent(event);
         int action = event.getAction();
 
         if (action == MotionEvent.ACTION_DOWN) {

@@ -17,29 +17,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_stick_header"
+            <wellijohn.org.scrollviewwithstickview.fragment.NoScrollWebView
+                android:id="@+id/webview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="@string/start" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="300dp"
-                android:text="@string/middle" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="300dp"
-                android:text="@string/end" />
-
+                android:layout_height="wrap_content" />
         </LinearLayout>
+
     </wellijohn.org.stickscrollview.ChildScrollView>
 
 </LinearLayout>

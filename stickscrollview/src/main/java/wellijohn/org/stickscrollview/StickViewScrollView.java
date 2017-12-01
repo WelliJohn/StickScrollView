@@ -1,7 +1,11 @@
 package wellijohn.org.stickscrollview;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -17,8 +21,23 @@ public class StickViewScrollView extends ScrollView {
     private boolean isChildToBottom;
 
     private ChildScrollView mChildScrollView;
+    private AutoFillView mAutoFillView;
+
+    private Runnable scrollerTask;
+
 
     private static final String TAG = "StickViewScrollView";
+
+    private int[] childScrollViewCoor = new int[2];
+
+    private boolean mIsAutoScrollChild;
+
+    private int initialPosition;
+    private int newCheck = 50;
+    private boolean mIsVisible;
+
+    private Rect rect = new Rect();
+
 
     public StickViewScrollView(Context context) {
         this(context, null);
@@ -33,26 +52,58 @@ public class StickViewScrollView extends ScrollView {
         post(new Runnable() {
             @Override
             public void run() {
-                mChildScrollView = findChildScrollView(StickViewScrollView.this);
+                mChildScrollView = (ChildScrollView) findChildView(StickViewScrollView.this, ChildScrollView.class);
+                mAutoFillView = (AutoFillView) findChildView(StickViewScrollView.this, AutoFillView.class);
             }
         });
         setFocusableInTouchMode(false);
+
+        scrollerTask = new Runnable() {
+
+            public void run() {
+                if (mAutoFillView == null || mChildScrollView == null) return;
+                int newPosition = getScrollY();
+                if (initialPosition - newPosition == 0) {//has stopped
+                    if (!mIsVisible) return;
+
+                    Log.d(TAG, "run: " + mIsAutoScrollChild);
+                    if (mIsAutoScrollChild) {
+                        ObjectAnimator.ofInt(StickViewScrollView.this, "scrollY",
+                                getChildAt(0).getHeight() - mAutoFillView.getHeight()).setDuration(200).start();
+                    } else {
+                        ObjectAnimator.ofInt(StickViewScrollView.this, "scrollY",
+                                (getChildAt(0).getHeight() - mAutoFillView.getHeight() * 2)).setDuration(200).setDuration(200).start();
+
+                    }
+                } else {
+                    initialPosition = getScrollY();
+                    StickViewScrollView.this.postDelayed(scrollerTask, newCheck);
+                }
+            }
+        };
+
     }
 
 
-    private ChildScrollView findChildScrollView(View paramView) {
+    public void startScrollerTask() {
+        initialPosition = getScrollY();
+        StickViewScrollView.this.postDelayed(scrollerTask, newCheck);
+    }
+
+    private View findChildView(View paramView, Class<?> t) {
+        View childView;
         if (paramView instanceof ViewGroup) {
             ViewGroup tempVg = (ViewGroup) paramView;
             int count = tempVg.getChildCount();
             for (int index = 0; index < count; index++) {
                 View tempView = tempVg.getChildAt(index);
-                if (tempView instanceof ChildScrollView) {
-                    mChildScrollView = (ChildScrollView) tempView;
-                    return mChildScrollView;
+                if (t.isInstance(tempView)) {
+                    childView = tempView;
+                    return childView;
                 } else if (tempView instanceof ViewGroup) {
-                    View view = findChildScrollView(tempView);
+                    View view = findChildView(tempView, t);
                     if (view != null) {
-                        return (ChildScrollView) view;
+                        return view;
                     }
                 }
             }
@@ -69,13 +120,38 @@ public class StickViewScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
+        if (mAutoFillView == null || mChildScrollView == null) return;
         // 滑动的距离加上本身的高度与子View的高度对比
-        if (t + getHeight() >= getChildAt(0).getMeasuredHeight()) {
-            // ScrollView滑动到底部
-            isChildToBottom = true;
-        } else {
-            isChildToBottom = false;
+        // ScrollView滑动到底部
+        isChildToBottom = t + getHeight() >= getChildAt(0).getMeasuredHeight();
+
+        mChildScrollView.getLocationInWindow(childScrollViewCoor);
+
+
+        mIsVisible = mAutoFillView.getGlobalVisibleRect(rect);
+
+        Log.d(TAG, "mAutoFillView显示的高度: " + rect.height());
+
+        if (mIsVisible) {
+            mIsAutoScrollChild = rect.height() > (mAutoFillView.getHeight() / 2);
         }
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        int action = ev.getAction();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_UP:
+                startScrollerTask();
+                break;
+        }
+        return super.onTouchEvent(ev);
+
     }
 
 }

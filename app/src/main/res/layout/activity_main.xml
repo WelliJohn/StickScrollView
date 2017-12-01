@@ -8,20 +8,24 @@
 
     <wellijohn.org.stickscrollview.StickViewScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-            <LinearLayout
+
+            <WebView
+                android:id="@+id/webview"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:background="@color/colorPrimaryDark" />
+                android:layout_height="wrap_content" />
+
 
             <wellijohn.org.stickscrollview.AutoFillView
+                android:id="@+id/autofillview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -52,5 +56,15 @@
 
     </wellijohn.org.stickscrollview.StickViewScrollView>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="bbbbbbb" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="aaaaaaa" />
 
 </LinearLayout>
