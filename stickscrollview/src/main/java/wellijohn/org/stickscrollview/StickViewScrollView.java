@@ -123,7 +123,7 @@ public class StickViewScrollView extends ScrollView {
 
         mIsVisible = mAutoFillView.getGlobalVisibleRect(rect);
 
-        Log.d(TAG, "mAutoFillView显示的高度: " + rect.height());
+        Log.d(TAG, "mAutoFillView显示的高度: " + mIsVisible);
 
         if (mIsVisible) {
             mIsAutoScrollChild = rect.height() > (mAutoFillView.getHeight() / 2);
