@@ -23,8 +23,7 @@ android {
 apply from:'./jcenter.gradle'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:25.4.0'
-
+    implementation 'com.android.support:recyclerview-v7:25.4.0'
 }

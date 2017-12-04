@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import wellijohn.org.scrollviewwithstickview.R;
+import wellijohn.org.scrollviewwithstickview.ReListAdapter;
 
 /**
  * @author: JiangWeiwei
@@ -28,6 +30,7 @@ public class TestFragment extends Fragment {
     float mDownY = 0;
     private LinearLayout mLl;
     private WebView mWebview;
+    private RecyclerView mChildRecyclerview;
 
     @Nullable
     @Override
@@ -57,42 +60,18 @@ public class TestFragment extends Fragment {
                 break;
         }
 
-//        LinearLayoutManager ll = new LinearLayoutManager(getActivity());
-//        mRv.setLayoutManager(ll);
-//        mRv.setAdapter(new ReListAdapter());
-//        mRv.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                int action = event.getAction();
-//                switch (action) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        mDownX = event.getX();
-//                        mDownY = event.getY();
-//
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                    case MotionEvent.ACTION_CANCEL:
-//                        v.getParent().requestDisallowInterceptTouchEvent(false);
-//                        break;
-//                    case MotionEvent.ACTION_MOVE:
-//                        if ((Math.abs(event.getY() - mDownY) > 100)) {
-//                            v.getParent().requestDisallowInterceptTouchEvent(true);
-//                        } else {
-//                            v.getParent().requestDisallowInterceptTouchEvent((Math.abs(event.getX() - mDownX) < HORIZONTALLY_SLIDE_MAX_LENGTH));
-//                        }
-//                        break;
-//                }
-//                return false;
-//            }
 
-//        });
-
+        LinearLayoutManager ll = new LinearLayoutManager(getActivity());
+        mChildRecyclerview.setLayoutManager(ll);
+        mChildRecyclerview.setAdapter(new ReListAdapter());
     }
 
     private void initView(View view) {
 //        mRv = (RecyclerView) view.findViewById(R.id.rv);
 //        mLl = (LinearLayout) view.findViewById(R.id.ll);
         mWebview = (WebView) view.findViewById(R.id.webview);
+        mChildRecyclerview = (RecyclerView) view.findViewById(R.id.child_recyclerview);
+
     }
 
     public static Fragment newInstance(int position) {
