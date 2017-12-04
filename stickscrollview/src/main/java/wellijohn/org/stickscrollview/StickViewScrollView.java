@@ -20,15 +20,12 @@ public class StickViewScrollView extends ScrollView {
 
     private boolean isChildToBottom;
 
-    private ChildScrollView mChildScrollView;
     private AutoFillView mAutoFillView;
 
     private Runnable scrollerTask;
 
 
     private static final String TAG = "StickViewScrollView";
-
-    private int[] childScrollViewCoor = new int[2];
 
     private boolean mIsAutoScrollChild;
 
@@ -52,7 +49,6 @@ public class StickViewScrollView extends ScrollView {
         post(new Runnable() {
             @Override
             public void run() {
-                mChildScrollView = (ChildScrollView) findChildView(StickViewScrollView.this, ChildScrollView.class);
                 mAutoFillView = (AutoFillView) findChildView(StickViewScrollView.this, AutoFillView.class);
             }
         });
@@ -61,7 +57,7 @@ public class StickViewScrollView extends ScrollView {
         scrollerTask = new Runnable() {
 
             public void run() {
-                if (mAutoFillView == null || mChildScrollView == null) return;
+                if (mAutoFillView == null) return;
                 int newPosition = getScrollY();
                 if (initialPosition - newPosition == 0) {//has stopped
                     if (!mIsVisible) return;
@@ -120,13 +116,10 @@ public class StickViewScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        if (mAutoFillView == null || mChildScrollView == null) return;
+        if (mAutoFillView == null) return;
         // 滑动的距离加上本身的高度与子View的高度对比
         // ScrollView滑动到底部
         isChildToBottom = t + getHeight() >= getChildAt(0).getMeasuredHeight();
-
-        mChildScrollView.getLocationInWindow(childScrollViewCoor);
-
 
         mIsVisible = mAutoFillView.getGlobalVisibleRect(rect);
 

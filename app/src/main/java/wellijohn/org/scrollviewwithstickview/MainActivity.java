@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         WebSettings webSettings = mWebview.getSettings();
         //设置WebView属性，能够执行Javascript脚本
         webSettings.setJavaScriptEnabled(true);
-        mWebview.loadUrl("https://www.baidu.com/");
+        mWebview.loadUrl("https://segmentfault.com/u/wellijhon_58622d2f61c2d");
     }
 
     private void initView() {

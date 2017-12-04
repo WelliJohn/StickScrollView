@@ -59,12 +59,14 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:text="bbbbbbb" />
+        android:text="bbbbbbb"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="aaaaaaa" />
+        android:text="aaaaaaa"
+        android:visibility="gone" />
 
 </LinearLayout>

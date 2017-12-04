@@ -22,6 +22,7 @@ import wellijohn.org.scrollviewwithstickview.R;
  */
 public class TestFragment extends Fragment {
     private static final float HORIZONTALLY_SLIDE_MAX_LENGTH = 10;
+    private static final String KEY_FRAGMENT_INT = "KEY_FRAGMENT_INT";
     private RecyclerView mRv;
     float mDownX = 0;
     float mDownY = 0;
@@ -44,13 +45,17 @@ public class TestFragment extends Fragment {
         //设置WebView属性，能够执行Javascript脚本
         webSettings.setJavaScriptEnabled(true);
 //        mWebview.loadUrl("https://juejin.im/post/5a0e907f6fb9a0452a3be487");
-        mWebview.loadUrl("https://www.baidu.com/");
-        mWebview.post(new Runnable() {
-            @Override
-            public void run() {
-//                Log.d(TAG, "WebView的高度run: " + mWebview.get);
-            }
-        });
+        switch (getArguments().getInt(KEY_FRAGMENT_INT)) {
+            case 0:
+                mWebview.loadUrl("https://www.baidu.com/");
+                break;
+            case 1:
+                mWebview.loadUrl("https://juejin.im/user/58ea34c661ff4b0061a3d3c2");
+                break;
+            case 2:
+                mWebview.loadUrl("https://segmentfault.com/a/1190000011276939");
+                break;
+        }
 
 //        LinearLayoutManager ll = new LinearLayoutManager(getActivity());
 //        mRv.setLayoutManager(ll);
@@ -87,6 +92,14 @@ public class TestFragment extends Fragment {
     private void initView(View view) {
 //        mRv = (RecyclerView) view.findViewById(R.id.rv);
 //        mLl = (LinearLayout) view.findViewById(R.id.ll);
-        mWebview = (NoScrollWebView) view.findViewById(R.id.webview);
+        mWebview = (WebView) view.findViewById(R.id.webview);
+    }
+
+    public static Fragment newInstance(int position) {
+        TestFragment fragment = new TestFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_FRAGMENT_INT, position);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 }

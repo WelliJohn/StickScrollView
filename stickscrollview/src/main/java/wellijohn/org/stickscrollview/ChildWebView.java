@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.widget.ScrollView;
+import android.webkit.WebView;
 
 /**
  * @author: JiangWeiwei
@@ -14,7 +14,7 @@ import android.widget.ScrollView;
  * @email:
  * @desc:
  */
-public class ChildScrollView extends ScrollView {
+public class ChildWebView extends WebView {
 
     private static final String TAG = "MyRecyclerView";
 
@@ -29,21 +29,21 @@ public class ChildScrollView extends ScrollView {
 
     private float mLastX;
 
-    public ChildScrollView(Context context) {
+    public ChildWebView(Context context) {
         this(context, null, 0);
     }
 
-    public ChildScrollView(Context context, @Nullable AttributeSet attrs) {
+    public ChildWebView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ChildScrollView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public ChildWebView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setFocusableInTouchMode(false);
         post(new Runnable() {
             @Override
             public void run() {
-                View tempView = ChildScrollView.this;
+                View tempView = ChildWebView.this;
                 while (!(tempView.getParent() instanceof StickViewScrollView)) {
                     tempView = (View) tempView.getParent();
                 }
@@ -64,21 +64,21 @@ public class ChildScrollView extends ScrollView {
             isScrolledToBottom = clampedY;
         }
     }
-
-    @Override
-    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-        super.onScrollChanged(l, t, oldl, oldt);
-        if (getScrollY() == 0) {
-            isScrolledToTop = true;
-            isScrolledToBottom = false;
-        } else if (getScrollY() + getHeight() - getPaddingTop() - getPaddingBottom() == getChildAt(0).getHeight()) {
-            isScrolledToBottom = true;
-            isScrolledToTop = false;
-        } else {
-            isScrolledToTop = false;
-            isScrolledToBottom = false;
-        }
-    }
+//
+//    @Override
+//    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+//        super.onScrollChanged(l, t, oldl, oldt);
+//        if (getScrollY() == 0) {
+//            isScrolledToTop = true;
+//            isScrolledToBottom = false;
+//        } else if (getScrollY() + getHeight() - getPaddingTop() - getPaddingBottom() == getChildAt(0).getHeight()) {
+//            isScrolledToBottom = true;
+//            isScrolledToTop = false;
+//        } else {
+//            isScrolledToTop = false;
+//            isScrolledToBottom = false;
+//        }
+//    }
 
 
     @Override
@@ -95,10 +95,10 @@ public class ChildScrollView extends ScrollView {
             float nowY = event.getY();
             if (!mStickViewScrollView.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
                 if (Math.abs(event.getX() - mLastX) < minPageSlop) {
-                    getParent().requestDisallowInterceptTouchEvent(true);
+                    getParent().requestDisallowInterceptTouchEvent(false);
                     return super.onTouchEvent(event);
                 } else {
-                    getParent().requestDisallowInterceptTouchEvent(true);
+                    getParent().requestDisallowInterceptTouchEvent(false);
                     return false;
                 }
             } else if (mStickViewScrollView.isBottom() && !isScrolledToBottom && nowY - mLastY < 0) {

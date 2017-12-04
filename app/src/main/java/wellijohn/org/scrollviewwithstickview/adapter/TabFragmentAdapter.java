@@ -21,7 +21,7 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new TestFragment();
+        return TestFragment.newInstance(position);
     }
 
     @Override
@@ -32,6 +32,15 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
+        if (position == 0) {
+            return "百度";
+        }
+        if (position == 1) {
+            return "掘金";
+        }
+        if (position == 2) {
+            return "segmentfault";
+        }
         return "tab" + position;
     }
 }
