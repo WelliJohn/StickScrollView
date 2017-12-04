@@ -65,10 +65,10 @@ public class StickViewScrollView extends ScrollView {
                     Log.d(TAG, "run: " + mIsAutoScrollChild);
                     if (mIsAutoScrollChild) {
                         ObjectAnimator.ofInt(StickViewScrollView.this, "scrollY",
-                                getChildAt(0).getHeight() - mAutoFillView.getHeight()).setDuration(200).start();
+                                getChildAt(0).getHeight() - mAutoFillView.getHeight()).setDuration(100).start();
                     } else {
                         ObjectAnimator.ofInt(StickViewScrollView.this, "scrollY",
-                                (getChildAt(0).getHeight() - mAutoFillView.getHeight() * 2)).setDuration(200).setDuration(200).start();
+                                (getChildAt(0).getHeight() - mAutoFillView.getHeight() * 2)).setDuration(100).setDuration(200).start();
 
                     }
                 } else {

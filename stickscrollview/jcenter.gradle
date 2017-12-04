@@ -6,7 +6,7 @@ tasks.withType(Javadoc) {
 }
 
 
-version = "0.0.6"
+version = "0.0.7"
 
 
 def siteUrl = 'https://github.com/WelliJohn/StickScrollView' // 项目的主页
