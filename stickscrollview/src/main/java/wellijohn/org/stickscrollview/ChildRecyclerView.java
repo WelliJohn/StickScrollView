@@ -124,7 +124,8 @@ public class ChildRecyclerView extends RecyclerView {
 
         if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
             getParent().requestDisallowInterceptTouchEvent(false);
-            mStickViewScrollView.startScrollerTask();
+            if (mStickViewScrollView.isNeedAutoScroll())
+                mStickViewScrollView.startScrollerTask();
         }
 
         return super.onTouchEvent(event);

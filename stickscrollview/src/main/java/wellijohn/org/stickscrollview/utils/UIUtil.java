@@ -1,4 +1,4 @@
-package wellijohn.org.scrollviewwithstickview.utils;
+package wellijohn.org.stickscrollview.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

@@ -33,13 +33,13 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         if (position == 0) {
-            return "百度";
+            return "点餐";
         }
         if (position == 1) {
-            return "掘金";
+            return "评价";
         }
         if (position == 2) {
-            return "segmentfault";
+            return "商家";
         }
         return "tab" + position;
     }

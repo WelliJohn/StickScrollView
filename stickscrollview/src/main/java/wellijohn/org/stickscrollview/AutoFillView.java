@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
 /**
@@ -29,31 +28,31 @@ public class AutoFillView extends FrameLayout {
 
     public AutoFillView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        AutoFillView.this.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                View tempView = AutoFillView.this;
-                while (!(tempView.getParent() instanceof StickViewScrollView)) {
-                    tempView = (View) tempView.getParent();
-                }
-                if (tempView.getParent() instanceof View) {
-                    ViewGroup.LayoutParams lp = AutoFillView.this.getLayoutParams();
-                    int contentHeight = lp.height = ((View) tempView.getParent()).getHeight();
-                    AutoFillView.this.setLayoutParams(lp);
-
-                    int[] viewPageCoor = new int[2];
-                    int[] autoFillCoor = new int[2];
-                    mViewPager = findViewPager(AutoFillView.this);
-                    mViewPager.getLocationInWindow(viewPageCoor);
-                    AutoFillView.this.getLocationOnScreen(autoFillCoor);
-                    int tempStickHeight = viewPageCoor[1] - autoFillCoor[1];
-
-                    ViewGroup.LayoutParams vpLp = mViewPager.getLayoutParams();
-                    vpLp.height = contentHeight - tempStickHeight;
-                    mViewPager.setLayoutParams(vpLp);
-                }
-            }
-        });
+//        AutoFillView.this.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                View tempView = AutoFillView.this;
+//                while (!(tempView.getParent() instanceof StickViewScrollView)) {
+//                    tempView = (View) tempView.getParent();
+//                }
+//                if (tempView.getParent() instanceof View) {
+//                    ViewGroup.LayoutParams lp = AutoFillView.this.getLayoutParams();
+//                    int contentHeight = lp.height = ((View) tempView.getParent()).getHeight();
+//                    AutoFillView.this.setLayoutParams(lp);
+//
+//                    int[] viewPageCoor = new int[2];
+//                    int[] autoFillCoor = new int[2];
+//                    mViewPager = findViewPager(AutoFillView.this);
+//                    mViewPager.getLocationInWindow(viewPageCoor);
+//                    AutoFillView.this.getLocationOnScreen(autoFillCoor);
+//                    int tempStickHeight = viewPageCoor[1] - autoFillCoor[1];
+//
+//                    ViewGroup.LayoutParams vpLp = mViewPager.getLayoutParams();
+//                    vpLp.height = contentHeight - tempStickHeight;
+//                    mViewPager.setLayoutParams(vpLp);
+//                }
+//            }
+//        });
     }
 
 

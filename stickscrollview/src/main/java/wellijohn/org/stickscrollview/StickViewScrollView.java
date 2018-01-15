@@ -2,13 +2,17 @@ package wellijohn.org.stickscrollview;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Rect;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
+
+import wellijohn.org.stickscrollview.utils.UIUtil;
 
 /**
  * @author: JiangWeiwei
@@ -29,6 +33,8 @@ public class StickViewScrollView extends ScrollView {
 
     private boolean mIsAutoScrollChild;
 
+    private boolean mIsNeedAutoScroll;
+
     private int initialPosition;
     private int newCheck = 50;
     private boolean mIsVisible;
@@ -44,12 +50,38 @@ public class StickViewScrollView extends ScrollView {
         this(context, attrs, 0);
     }
 
-    public StickViewScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public StickViewScrollView(final Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        TypedArray ta = context.getResources().obtainAttributes(attrs, R.styleable.StickViewScrollView);
+        mIsNeedAutoScroll = ta.getBoolean(R.styleable.StickViewScrollView_autoscroll, false);
+        ta.recycle();
         post(new Runnable() {
             @Override
             public void run() {
                 mAutoFillView = (AutoFillView) findChildView(StickViewScrollView.this, AutoFillView.class);
+
+
+                ViewGroup.LayoutParams lp = mAutoFillView.getLayoutParams();
+                int[] stickViewScrollViewCoor = new int[2];
+                StickViewScrollView.this.getLocationOnScreen(stickViewScrollViewCoor);
+
+                int contentHeight = UIUtil.getScreenHeight(context) - stickViewScrollViewCoor[1];
+                lp.height = contentHeight;
+                mAutoFillView.setLayoutParams(lp);
+
+                int[] viewPageCoor = new int[2];
+                int[] autoFillCoor = new int[2];
+                ViewPager tempViewPager = (ViewPager) findChildView(mAutoFillView, ViewPager.class);
+                tempViewPager.getLocationOnScreen(viewPageCoor);
+                mAutoFillView.getLocationOnScreen(autoFillCoor);
+                int tempStickHeight = viewPageCoor[1] - autoFillCoor[1];
+
+                ViewGroup.LayoutParams vpLp = tempViewPager.getLayoutParams();
+                vpLp.height = contentHeight - tempStickHeight;
+                tempViewPager.setLayoutParams(vpLp);
+
+
             }
         });
         setFocusableInTouchMode(false);
@@ -126,7 +158,7 @@ public class StickViewScrollView extends ScrollView {
         Log.d(TAG, "mAutoFillView显示的高度: " + mIsVisible);
 
         if (mIsVisible) {
-            mIsAutoScrollChild = rect.height() > (mAutoFillView.getHeight() / 2);
+            mIsAutoScrollChild = rect.height() > (mAutoFillView.getHeight() / 3);
         }
     }
 
@@ -140,11 +172,20 @@ public class StickViewScrollView extends ScrollView {
             case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_UP:
-                startScrollerTask();
+                if (mIsNeedAutoScroll)
+                    startScrollerTask();
                 break;
         }
         return super.onTouchEvent(ev);
 
     }
 
+
+    public void setNeedAutoScroll(boolean parmNeedAutoScroll) {
+        this.mIsNeedAutoScroll = parmNeedAutoScroll;
+    }
+
+    public boolean isNeedAutoScroll() {
+        return mIsNeedAutoScroll;
+    }
 }

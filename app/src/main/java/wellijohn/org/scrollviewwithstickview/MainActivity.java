@@ -5,15 +5,19 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import wellijohn.org.scrollviewwithstickview.adapter.TabFragmentAdapter;
 import wellijohn.org.stickscrollview.AutoFillView;
 import wellijohn.org.stickscrollview.ChildScrollView;
+import wellijohn.org.stickscrollview.StickViewScrollView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private WebView mWebview;
     private AutoFillView mAutofillview;
     private Button mButton;
+    private StickViewScrollView mStickScrollView;
+    private LinearLayout mLl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         //设置WebView属性，能够执行Javascript脚本
         webSettings.setJavaScriptEnabled(true);
         mWebview.loadUrl("https://segmentfault.com/u/wellijhon_58622d2f61c2d");
+
+        Log.d(TAG, "initUI: " + (mLl.getDescendantFocusability() == ViewGroup.FOCUS_BLOCK_DESCENDANTS));
     }
 
     private void initView() {
@@ -61,5 +69,7 @@ public class MainActivity extends AppCompatActivity {
         mWebview = (WebView) findViewById(R.id.webview);
         mAutofillview = (AutoFillView) findViewById(R.id.autofillview);
         mButton = (Button) findViewById(R.id.button);
+        mStickScrollView = (StickViewScrollView) findViewById(R.id.stick_scroll_view);
+        mLl = (LinearLayout) findViewById(R.id.ll);
     }
 }
