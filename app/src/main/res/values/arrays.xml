@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="second_foods">
+        <item>糖醋里脊</item>
+        <item>酸辣土豆丝</item>
+        <item>豆腐</item>
+        <item>上汤菠菜</item>
+        <item>红烧肉</item>
+        <item>茶树菇</item>
+        <item>干菜刀豆</item>
+        <item>开背虾</item>
+        <item>清炖牛肉</item>
+        <item>红烧鱼块</item>
+    </string-array>
+
+
+    <string-array name="first_foods">
+        <item>米饭</item>
+        <item>招牌菜</item>
+        <item>家常风味</item>
+        <item>精美甜品</item>
+        <item>饮料</item>
+        <item>田园时蔬</item>
+    </string-array>
+</resources>

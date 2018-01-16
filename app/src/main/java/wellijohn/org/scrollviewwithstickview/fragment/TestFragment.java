@@ -14,7 +14,8 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import wellijohn.org.scrollviewwithstickview.R;
-import wellijohn.org.scrollviewwithstickview.ReListAdapter;
+import wellijohn.org.scrollviewwithstickview.adapter.RVRightListAdapter;
+import wellijohn.org.scrollviewwithstickview.adapter.ReListAdapter;
 
 /**
  * @author: JiangWeiwei
@@ -31,6 +32,7 @@ public class TestFragment extends Fragment {
     private LinearLayout mLl;
     private WebView mWebview;
     private RecyclerView mChildRecyclerview;
+    private RecyclerView mChildRecyclerviewRight;
 
     @Nullable
     @Override
@@ -64,6 +66,11 @@ public class TestFragment extends Fragment {
         LinearLayoutManager ll = new LinearLayoutManager(getActivity());
         mChildRecyclerview.setLayoutManager(ll);
         mChildRecyclerview.setAdapter(new ReListAdapter());
+
+
+        LinearLayoutManager llRight = new LinearLayoutManager(getActivity());
+        mChildRecyclerviewRight.setLayoutManager(llRight);
+        mChildRecyclerviewRight.setAdapter(new RVRightListAdapter());
     }
 
     private void initView(View view) {
@@ -71,6 +78,8 @@ public class TestFragment extends Fragment {
 //        mLl = (LinearLayout) view.findViewById(R.id.ll);
         mWebview = (WebView) view.findViewById(R.id.webview);
         mChildRecyclerview = (RecyclerView) view.findViewById(R.id.child_recyclerview);
+        mChildRecyclerviewRight = (RecyclerView) view.findViewById(R.id.child_recyclerview_right);
+
 
     }
 

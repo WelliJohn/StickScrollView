@@ -11,8 +11,7 @@
         android:id="@+id/stick_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:autoscroll="true">
+        android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/ll"
@@ -35,20 +34,33 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:padding="10dp"
-                    android:text="新白鹿(城西银泰店)"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_yellow_full_small_corner_bg"
+                        android:text="品牌"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:padding="10dp"
+                        android:text="新白鹿 (城西银泰店)"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="评分4.6 月售6015单 蜂鸟专送 约29分钟 距离1km"
+                    android:text="评分4.6  月售6015单 蜂鸟专送 约29分钟 距离1km"
                     android:textColor="#D0000000"
                     android:textSize="13sp" />
 
@@ -65,11 +77,28 @@
                     android:background="#3F000000" />
 
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="新用户下单立减17元(不与其他活动同享)     5个优惠"
-                    android:textSize="12sp" />
+                    android:background="@drawable/btn_border_gray_999_bg"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/btn_green_big_nomal_bg"
+                        android:text="首单"
+                        android:textColor="#FFFFFF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="新用户下单立减17元(不与其他活动同享)     5个优惠"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
 
             </LinearLayout>
 

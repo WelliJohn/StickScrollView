@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import wellijohn.org.scrollviewwithstickview.adapter.ReListAdapter;
 import wellijohn.org.scrollviewwithstickview.adapter.TabFragmentAdapter;
 import wellijohn.org.stickscrollview.AutoFillView;
 import wellijohn.org.stickscrollview.ChildScrollView;
