@@ -1,5 +1,6 @@
 package wellijohn.org.scrollviewwithstickview.adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ import wellijohn.org.scrollviewwithstickview.R;
 public class ReListAdapter extends RecyclerView.Adapter<ReListAdapter.ViewHolder> {
 
 
-    private String[] foods={"米饭","招牌菜","家常风味","精美甜品","饮料","田园时蔬","美食"};
+    private String[] foods = {"米饭", "招牌菜", "家常风味", "精美甜品", "饮料", "田园时蔬", "美食"};
 
 
     @Override
@@ -29,6 +30,11 @@ public class ReListAdapter extends RecyclerView.Adapter<ReListAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tv.setText(foods[position]);
+        if (position == 0) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        }else{
+            holder.itemView.setBackgroundColor(Color.parseColor("#EEEEEE"));
+        }
     }
 
     @Override

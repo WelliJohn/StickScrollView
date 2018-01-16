@@ -32,6 +32,12 @@ public class RVRightListAdapter extends RecyclerView.Adapter<RVRightListAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tv.setText(foods[position]);
         holder.iv.setImageResource(R.drawable.food);
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(v.getContext(),"点击了",Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
     @Override

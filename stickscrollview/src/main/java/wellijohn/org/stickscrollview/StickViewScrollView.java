@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 
@@ -22,6 +23,7 @@ import wellijohn.org.stickscrollview.utils.UIUtil;
  */
 public class StickViewScrollView extends ScrollView {
 
+    private final int minPageSlop;
     private boolean isChildToBottom;
 
     private AutoFillView mAutoFillView;
@@ -40,6 +42,9 @@ public class StickViewScrollView extends ScrollView {
     private boolean mIsVisible;
 
     private Rect rect = new Rect();
+    private float mLastX;
+    private float mLastY;
+    private boolean horScroll;
 
 
     public StickViewScrollView(Context context) {
@@ -52,7 +57,7 @@ public class StickViewScrollView extends ScrollView {
 
     public StickViewScrollView(final Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
+        minPageSlop = ViewConfiguration.get(getContext()).getScaledPagingTouchSlop();
         TypedArray ta = context.getResources().obtainAttributes(attrs, R.styleable.StickViewScrollView);
         mIsNeedAutoScroll = ta.getBoolean(R.styleable.StickViewScrollView_autoscroll, false);
         ta.recycle();
@@ -139,6 +144,11 @@ public class StickViewScrollView extends ScrollView {
         return null;
     }
 
+
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent event) {
+//        return !isBottom() || super.onInterceptTouchEvent(event);
+//    }
 
     public boolean isBottom() {
         return isChildToBottom;
