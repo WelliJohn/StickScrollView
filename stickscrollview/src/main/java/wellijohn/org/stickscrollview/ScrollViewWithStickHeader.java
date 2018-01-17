@@ -141,7 +141,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
     }
 
 
-    public void setStickView(View paramAutoFillView) {
+    public void setContentView(View paramAutoFillView) {
         this.mAutoFillView = paramAutoFillView;
     }
 
