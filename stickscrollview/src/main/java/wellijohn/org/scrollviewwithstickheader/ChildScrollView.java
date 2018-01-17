@@ -1,4 +1,4 @@
-package wellijohn.org.stickscrollview;
+package wellijohn.org.scrollviewwithstickheader;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.webkit.WebView;
+import android.widget.ScrollView;
 
 /**
  * @author: JiangWeiwei
@@ -14,7 +14,7 @@ import android.webkit.WebView;
  * @email:
  * @desc:
  */
-public class ChildWebView extends WebView {
+public class ChildScrollView extends ScrollView {
 
     private static final String TAG = "MyRecyclerView";
 
@@ -29,21 +29,21 @@ public class ChildWebView extends WebView {
 
     private float mLastX;
 
-    public ChildWebView(Context context) {
+    public ChildScrollView(Context context) {
         this(context, null, 0);
     }
 
-    public ChildWebView(Context context, @Nullable AttributeSet attrs) {
+    public ChildScrollView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ChildWebView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public ChildScrollView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setFocusableInTouchMode(false);
         post(new Runnable() {
             @Override
             public void run() {
-                View tempView = ChildWebView.this;
+                View tempView = ChildScrollView.this;
                 while (!(tempView.getParent() instanceof ScrollViewWithStickHeader)) {
                     tempView = (View) tempView.getParent();
                 }
@@ -64,21 +64,21 @@ public class ChildWebView extends WebView {
             isScrolledToBottom = clampedY;
         }
     }
-//
-//    @Override
-//    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-//        super.onScrollChanged(l, t, oldl, oldt);
-//        if (getScrollY() == 0) {
-//            isScrolledToTop = true;
-//            isScrolledToBottom = false;
-//        } else if (getScrollY() + getHeight() - getPaddingTop() - getPaddingBottom() == getChildAt(0).getHeight()) {
-//            isScrolledToBottom = true;
-//            isScrolledToTop = false;
-//        } else {
-//            isScrolledToTop = false;
-//            isScrolledToBottom = false;
-//        }
-//    }
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        if (getScrollY() == 0) {
+            isScrolledToTop = true;
+            isScrolledToBottom = false;
+        } else if (getScrollY() + getHeight() - getPaddingTop() - getPaddingBottom() == getChildAt(0).getHeight()) {
+            isScrolledToBottom = true;
+            isScrolledToTop = false;
+        } else {
+            isScrolledToTop = false;
+            isScrolledToBottom = false;
+        }
+    }
 
 
     @Override
@@ -103,10 +103,10 @@ public class ChildWebView extends WebView {
             float nowY = event.getY();
             if (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
                 if (Math.abs(event.getX() - mLastX) < minPageSlop) {
-                    getParent().requestDisallowInterceptTouchEvent(false);
+                    getParent().requestDisallowInterceptTouchEvent(true);
                     return super.onTouchEvent(event);
                 } else {
-                    getParent().requestDisallowInterceptTouchEvent(false);
+                    getParent().requestDisallowInterceptTouchEvent(true);
                     return false;
                 }
             } else if (mScrollViewWithStickHeader.isBottom() && !isScrolledToBottom && nowY - mLastY < 0) {

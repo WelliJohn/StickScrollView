@@ -1,4 +1,4 @@
-package wellijohn.org.stickscrollview;
+package wellijohn.org.scrollviewwithstickheader;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ScrollView;
 
-import wellijohn.org.stickscrollview.utils.UIUtil;
+import wellijohn.org.scrollviewwithstickheader.utils.UIUtil;
 
 /**
  * @author: JiangWeiwei

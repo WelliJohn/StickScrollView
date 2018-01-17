@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-    <wellijohn.org.stickscrollview.ChildScrollView
+    <wellijohn.org.scrollviewwithstickheader.ChildScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,14 +21,14 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-            <wellijohn.org.stickscrollview.ChildWebView
+            <wellijohn.org.scrollviewwithstickheader.ChildWebView
                 android:id="@+id/webview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone" />
         </LinearLayout>
 
-    </wellijohn.org.stickscrollview.ChildScrollView>
+    </wellijohn.org.scrollviewwithstickheader.ChildScrollView>
 
 
     <LinearLayout
@@ -36,14 +36,14 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <wellijohn.org.stickscrollview.ChildRecyclerView
+        <wellijohn.org.scrollviewwithstickheader.ChildRecyclerView
             android:id="@+id/child_recyclerview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#EEEEEE" />
 
-        <wellijohn.org.stickscrollview.ChildRecyclerView
+        <wellijohn.org.scrollviewwithstickheader.ChildRecyclerView
             android:id="@+id/child_recyclerview_right"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

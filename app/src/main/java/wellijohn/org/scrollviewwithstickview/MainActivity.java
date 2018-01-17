@@ -14,9 +14,9 @@ import android.widget.TextView;
 
 import wellijohn.org.scrollviewwithstickview.adapter.ReListAdapter;
 import wellijohn.org.scrollviewwithstickview.adapter.TabFragmentAdapter;
-import wellijohn.org.stickscrollview.ChildRecyclerView;
-import wellijohn.org.stickscrollview.ChildScrollView;
-import wellijohn.org.stickscrollview.ScrollViewWithStickHeader;
+import wellijohn.org.scrollviewwithstickheader.ChildRecyclerView;
+import wellijohn.org.scrollviewwithstickheader.ChildScrollView;
+import wellijohn.org.scrollviewwithstickheader.ScrollViewWithStickHeader;
 
 public class MainActivity extends AppCompatActivity {
 

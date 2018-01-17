@@ -1,12 +1,12 @@
-package wellijohn.org.stickscrollview;
+package wellijohn.org.scrollviewwithstickheader;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.webkit.WebView;
 
 /**
  * @author: JiangWeiwei
@@ -14,7 +14,7 @@ import android.view.ViewConfiguration;
  * @email:
  * @desc:
  */
-public class ChildRecyclerView extends RecyclerView {
+public class ChildWebView extends WebView {
 
     private static final String TAG = "MyRecyclerView";
 
@@ -29,21 +29,21 @@ public class ChildRecyclerView extends RecyclerView {
 
     private float mLastX;
 
-    public ChildRecyclerView(Context context) {
+    public ChildWebView(Context context) {
         this(context, null, 0);
     }
 
-    public ChildRecyclerView(Context context, @Nullable AttributeSet attrs) {
+    public ChildWebView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ChildRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public ChildWebView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setFocusableInTouchMode(false);
         post(new Runnable() {
             @Override
             public void run() {
-                View tempView = ChildRecyclerView.this;
+                View tempView = ChildWebView.this;
                 while (!(tempView.getParent() instanceof ScrollViewWithStickHeader)) {
                     tempView = (View) tempView.getParent();
                 }
@@ -132,8 +132,6 @@ public class ChildRecyclerView extends RecyclerView {
 
         if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
             getParent().requestDisallowInterceptTouchEvent(false);
-            if (mScrollViewWithStickHeader.isNeedAutoScroll())
-                mScrollViewWithStickHeader.startScrollerTask();
         }
 
         return super.onTouchEvent(event);

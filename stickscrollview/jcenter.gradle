@@ -6,7 +6,7 @@ tasks.withType(Javadoc) {
 }
 
 
-version = "0.0.8"
+version = "0.0.1"
 
 
 def siteUrl = 'https://github.com/WelliJohn/StickScrollView' // 项目的主页
@@ -18,7 +18,7 @@ install {
             project {
                 packaging 'aar'
                 //项目描述
-                name 'InnerStickScrollView'
+                name 'ScrollViewWithStickview'
                 url siteUrl
                 // 开源协议
                 licenses {
@@ -71,8 +71,8 @@ bintray {
     key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
     pkg {
-        repo = "InnerStickScrollView"
-        name = "InnerStickScrollView"    //发布到JCenter上的项目名字
+        repo = "ScrollViewWithStickview"
+        name = "ScrollViewWithStickview"    //发布到JCenter上的项目名字
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]

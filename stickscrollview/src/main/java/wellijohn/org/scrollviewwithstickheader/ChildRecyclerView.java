@@ -1,12 +1,12 @@
-package wellijohn.org.stickscrollview;
+package wellijohn.org.scrollviewwithstickheader;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.widget.ScrollView;
 
 /**
  * @author: JiangWeiwei
@@ -14,7 +14,7 @@ import android.widget.ScrollView;
  * @email:
  * @desc:
  */
-public class ChildScrollView extends ScrollView {
+public class ChildRecyclerView extends RecyclerView {
 
     private static final String TAG = "MyRecyclerView";
 
@@ -29,21 +29,21 @@ public class ChildScrollView extends ScrollView {
 
     private float mLastX;
 
-    public ChildScrollView(Context context) {
+    public ChildRecyclerView(Context context) {
         this(context, null, 0);
     }
 
-    public ChildScrollView(Context context, @Nullable AttributeSet attrs) {
+    public ChildRecyclerView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ChildScrollView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public ChildRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setFocusableInTouchMode(false);
         post(new Runnable() {
             @Override
             public void run() {
-                View tempView = ChildScrollView.this;
+                View tempView = ChildRecyclerView.this;
                 while (!(tempView.getParent() instanceof ScrollViewWithStickHeader)) {
                     tempView = (View) tempView.getParent();
                 }
@@ -64,21 +64,21 @@ public class ChildScrollView extends ScrollView {
             isScrolledToBottom = clampedY;
         }
     }
-
-    @Override
-    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-        super.onScrollChanged(l, t, oldl, oldt);
-        if (getScrollY() == 0) {
-            isScrolledToTop = true;
-            isScrolledToBottom = false;
-        } else if (getScrollY() + getHeight() - getPaddingTop() - getPaddingBottom() == getChildAt(0).getHeight()) {
-            isScrolledToBottom = true;
-            isScrolledToTop = false;
-        } else {
-            isScrolledToTop = false;
-            isScrolledToBottom = false;
-        }
-    }
+//
+//    @Override
+//    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+//        super.onScrollChanged(l, t, oldl, oldt);
+//        if (getScrollY() == 0) {
+//            isScrolledToTop = true;
+//            isScrolledToBottom = false;
+//        } else if (getScrollY() + getHeight() - getPaddingTop() - getPaddingBottom() == getChildAt(0).getHeight()) {
+//            isScrolledToBottom = true;
+//            isScrolledToTop = false;
+//        } else {
+//            isScrolledToTop = false;
+//            isScrolledToBottom = false;
+//        }
+//    }
 
 
     @Override
@@ -103,10 +103,10 @@ public class ChildScrollView extends ScrollView {
             float nowY = event.getY();
             if (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
                 if (Math.abs(event.getX() - mLastX) < minPageSlop) {
-                    getParent().requestDisallowInterceptTouchEvent(true);
+                    getParent().requestDisallowInterceptTouchEvent(false);
                     return super.onTouchEvent(event);
                 } else {
-                    getParent().requestDisallowInterceptTouchEvent(true);
+                    getParent().requestDisallowInterceptTouchEvent(false);
                     return false;
                 }
             } else if (mScrollViewWithStickHeader.isBottom() && !isScrolledToBottom && nowY - mLastY < 0) {
@@ -132,6 +132,8 @@ public class ChildScrollView extends ScrollView {
 
         if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
             getParent().requestDisallowInterceptTouchEvent(false);
+            if (mScrollViewWithStickHeader.isNeedAutoScroll())
+                mScrollViewWithStickHeader.startScrollerTask();
         }
 
         return super.onTouchEvent(event);
