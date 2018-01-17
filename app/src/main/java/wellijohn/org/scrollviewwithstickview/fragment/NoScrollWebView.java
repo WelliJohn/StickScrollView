@@ -3,11 +3,8 @@ package wellijohn.org.scrollviewwithstickview.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * @author: JiangWeiwei
@@ -28,7 +25,7 @@ public class NoScrollWebView extends WebView {
         post(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "WebView的高度run: " + NoScrollWebView.this.getMeasuredHeight());
+//                Log.d(TAG, "WebView的高度run: " + NoScrollWebView.this.getMeasuredHeight());
                 ViewGroup.LayoutParams lp =NoScrollWebView.this.getLayoutParams();
                 lp.height =3000;
                 NoScrollWebView.this.setLayoutParams(lp);

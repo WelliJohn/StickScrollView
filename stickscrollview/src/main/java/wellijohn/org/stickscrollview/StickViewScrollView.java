@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -161,8 +160,6 @@ public class StickViewScrollView extends ScrollView {
         isChildToBottom = t + getHeight() >= getChildAt(0).getMeasuredHeight();
 
         mIsVisible = mAutoFillView.getGlobalVisibleRect(rect);
-
-        Log.d(TAG, "mAutoFillView显示的高度: " + mIsVisible);
 
         if (mIsVisible) {
             mIsAutoScrollChild = rect.height() > (mAutoFillView.getHeight() / 3);
