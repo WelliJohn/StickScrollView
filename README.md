@@ -1,5 +1,5 @@
 # StickScrollView
-![image](https://github.com/WelliJohn/StickScrollView/blob/master/imgs/scrollsnap.gif)
+![image](https://github.com/WelliJohn/StickScrollView/blob/master/imgs/%E4%BB%BF%E9%A5%BF%E4%BA%86%E4%B9%88%E5%88%97%E8%A1%A8%E9%A1%B5.gif)
 ## 使用说明
 compile 'wellijohn.org:stickscrollview:0.0.7'<br>
 另外界面的布局如下所示
