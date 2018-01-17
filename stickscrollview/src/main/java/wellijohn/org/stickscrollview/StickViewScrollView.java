@@ -188,10 +188,6 @@ public class StickViewScrollView extends ScrollView {
     }
 
 
-    public void setNeedAutoScroll(boolean parmNeedAutoScroll) {
-        this.mIsNeedAutoScroll = parmNeedAutoScroll;
-    }
-
     public boolean isNeedAutoScroll() {
         return mIsNeedAutoScroll;
     }
