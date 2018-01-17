@@ -23,7 +23,7 @@ public class ChildScrollView extends ScrollView {
     private boolean isScrolledToTop = true;
     private boolean isScrolledToBottom = false;
 
-    private StickViewScrollView mStickViewScrollView;
+    private ScrollViewWithStickHeader mScrollViewWithStickHeader;
 
     private static int minPageSlop;
 
@@ -44,10 +44,10 @@ public class ChildScrollView extends ScrollView {
             @Override
             public void run() {
                 View tempView = ChildScrollView.this;
-                while (!(tempView.getParent() instanceof StickViewScrollView)) {
+                while (!(tempView.getParent() instanceof ScrollViewWithStickHeader)) {
                     tempView = (View) tempView.getParent();
                 }
-                mStickViewScrollView = (StickViewScrollView) tempView.getParent();
+                mScrollViewWithStickHeader = (ScrollViewWithStickHeader) tempView.getParent();
             }
         });
         minPageSlop = ViewConfiguration.get(getContext()).getScaledPagingTouchSlop();
@@ -83,14 +83,14 @@ public class ChildScrollView extends ScrollView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (mStickViewScrollView == null) return super.onTouchEvent(event);
+        if (mScrollViewWithStickHeader == null) return super.onTouchEvent(event);
         int action = event.getAction();
 
         if (action == MotionEvent.ACTION_DOWN) {
             mLastX = event.getX();
             mLastY = event.getY();
             //首先判断外层ScrollView是否滑动到底部
-            if (mStickViewScrollView.isBottom()) {
+            if (mScrollViewWithStickHeader.isBottom()) {
                 getParent().requestDisallowInterceptTouchEvent(true);
                 return super.onTouchEvent(event);
             } else {
@@ -101,7 +101,7 @@ public class ChildScrollView extends ScrollView {
         }
         if (action == MotionEvent.ACTION_MOVE) {
             float nowY = event.getY();
-            if (!mStickViewScrollView.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
+            if (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
                 if (Math.abs(event.getX() - mLastX) < minPageSlop) {
                     getParent().requestDisallowInterceptTouchEvent(true);
                     return super.onTouchEvent(event);
@@ -109,7 +109,7 @@ public class ChildScrollView extends ScrollView {
                     getParent().requestDisallowInterceptTouchEvent(true);
                     return false;
                 }
-            } else if (mStickViewScrollView.isBottom() && !isScrolledToBottom && nowY - mLastY < 0) {
+            } else if (mScrollViewWithStickHeader.isBottom() && !isScrolledToBottom && nowY - mLastY < 0) {
                 if (Math.abs(event.getX() - mLastX) < minPageSlop) {
                     getParent().requestDisallowInterceptTouchEvent(true);
                     return super.onTouchEvent(event);
@@ -117,7 +117,7 @@ public class ChildScrollView extends ScrollView {
                     getParent().requestDisallowInterceptTouchEvent(true);
                     return false;
                 }
-            } else if (mStickViewScrollView.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
+            } else if (mScrollViewWithStickHeader.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
                 if (Math.abs(event.getX() - mLastX) < minPageSlop) {
                     getParent().requestDisallowInterceptTouchEvent(true);
                     return super.onTouchEvent(event);

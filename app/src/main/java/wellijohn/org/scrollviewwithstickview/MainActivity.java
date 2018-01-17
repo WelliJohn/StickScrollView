@@ -14,8 +14,9 @@ import android.widget.TextView;
 
 import wellijohn.org.scrollviewwithstickview.adapter.ReListAdapter;
 import wellijohn.org.scrollviewwithstickview.adapter.TabFragmentAdapter;
+import wellijohn.org.stickscrollview.ChildRecyclerView;
 import wellijohn.org.stickscrollview.ChildScrollView;
-import wellijohn.org.stickscrollview.StickViewScrollView;
+import wellijohn.org.stickscrollview.ScrollViewWithStickHeader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private WebView mWebview;
     private LinearLayout mLLStickList;
     private Button mButton;
-    private StickViewScrollView mStickScrollView;
+    private ScrollViewWithStickHeader mStickScrollView;
     private LinearLayout mLl;
+    private ChildRecyclerView mCrv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initUI();
         mStickScrollView.setStickView(mLLStickList);
+
+//        LinearLayoutManager llRight = new LinearLayoutManager(this);
+//        mCrv.setLayoutManager(llRight);
+//        mCrv.setAdapter(new RVRightListAdapter());
     }
 
     private void initUI() {
@@ -68,8 +74,9 @@ public class MainActivity extends AppCompatActivity {
 
         mWebview = (WebView) findViewById(R.id.webview);
         mButton = (Button) findViewById(R.id.button);
-        mStickScrollView = (StickViewScrollView) findViewById(R.id.stick_scroll_view);
+        mStickScrollView = (ScrollViewWithStickHeader) findViewById(R.id.stick_scroll_view);
         mLl = (LinearLayout) findViewById(R.id.ll);
+//        mCrv = (ChildRecyclerView) findViewById(R.id.crv);
 
     }
 }

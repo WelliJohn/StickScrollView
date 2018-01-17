@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="wellijohn.org.scrollviewwithstickview.MainActivity">
 
-    <wellijohn.org.stickscrollview.StickViewScrollView
+    <wellijohn.org.stickscrollview.ScrollViewWithStickHeader
         android:id="@+id/stick_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
 
         </LinearLayout>
 
-    </wellijohn.org.stickscrollview.StickViewScrollView>
+    </wellijohn.org.stickscrollview.ScrollViewWithStickHeader>
 
     <Button
         android:layout_width="match_parent"
