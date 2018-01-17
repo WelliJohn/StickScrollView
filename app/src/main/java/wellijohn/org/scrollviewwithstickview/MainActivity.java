@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mVp;
     private TabFragmentAdapter mTabFragmentAdapter;
     private WebView mWebview;
-    private View mAutofillview;
+    private LinearLayout mLLStickList;
     private Button mButton;
     private StickViewScrollView mStickScrollView;
     private LinearLayout mLl;
@@ -44,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
         initUI();
+        mStickScrollView.setStickView(mLLStickList);
     }
 
     private void initUI() {
@@ -66,10 +66,12 @@ public class MainActivity extends AppCompatActivity {
         mOrderManagerTabs = (TabLayout) findViewById(R.id.order_manager_tabs);
 //        mCsv = (ChildScrollView) findViewById(R.id.csv);
         mVp = (ViewPager) findViewById(R.id.vp);
+        mLLStickList = (LinearLayout) findViewById(R.id.ll_stick_list);
 
         mWebview = (WebView) findViewById(R.id.webview);
         mButton = (Button) findViewById(R.id.button);
         mStickScrollView = (StickViewScrollView) findViewById(R.id.stick_scroll_view);
         mLl = (LinearLayout) findViewById(R.id.ll);
+
     }
 }

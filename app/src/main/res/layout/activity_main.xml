@@ -103,34 +103,30 @@
             </LinearLayout>
 
 
-            <wellijohn.org.stickscrollview.AutoFillView
-                android:id="@+id/autofillview"
+            <LinearLayout
+                android:id="@+id/ll_stick_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <LinearLayout
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/order_manager_tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="50dp"
+                    android:background="#FFFFFF"
+                    tools:tabGravity="fill"
+                    tools:tabMode="fixed" />
 
 
-                    <android.support.design.widget.TabLayout
-                        android:id="@+id/order_manager_tabs"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="#FFFFFF"
-                        tools:tabGravity="fill"
-                        tools:tabMode="fixed" />
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
 
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/vp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+            </LinearLayout>
 
-
-                </LinearLayout>
-            </wellijohn.org.stickscrollview.AutoFillView>
         </LinearLayout>
 
     </wellijohn.org.stickscrollview.StickViewScrollView>

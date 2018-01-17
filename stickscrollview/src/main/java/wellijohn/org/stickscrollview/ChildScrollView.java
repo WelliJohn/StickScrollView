@@ -89,7 +89,15 @@ public class ChildScrollView extends ScrollView {
         if (action == MotionEvent.ACTION_DOWN) {
             mLastX = event.getX();
             mLastY = event.getY();
-            getParent().requestDisallowInterceptTouchEvent(true);
+            //首先判断外层ScrollView是否滑动到底部
+            if (mStickViewScrollView.isBottom()) {
+                getParent().requestDisallowInterceptTouchEvent(true);
+                return super.onTouchEvent(event);
+            } else {
+                //拦截事件 本身不处理
+                getParent().requestDisallowInterceptTouchEvent(false);
+                return false;
+            }
         }
         if (action == MotionEvent.ACTION_MOVE) {
             float nowY = event.getY();

@@ -91,8 +91,6 @@ public class ChildRecyclerView extends RecyclerView {
             mLastY = event.getY();
             //首先判断外层ScrollView是否滑动到底部
             if (mStickViewScrollView.isBottom()) {
-                //父控件（viewPager）不要拦截事件 交给当前scrollview处理
-                //如果ACTION_DOWN是返回false 这后续事件都接收不到
                 getParent().requestDisallowInterceptTouchEvent(true);
                 return super.onTouchEvent(event);
             } else {
