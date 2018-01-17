@@ -41,9 +41,6 @@ public class StickViewScrollView extends ScrollView {
     private boolean mIsVisible;
 
     private Rect rect = new Rect();
-    private float mLastX;
-    private float mLastY;
-    private boolean horScroll;
 
 
     public StickViewScrollView(Context context) {
@@ -60,8 +57,6 @@ public class StickViewScrollView extends ScrollView {
         TypedArray ta = context.getResources().obtainAttributes(attrs, R.styleable.StickViewScrollView);
         mIsNeedAutoScroll = ta.getBoolean(R.styleable.StickViewScrollView_autoscroll, false);
         ta.recycle();
-
-        setFocusableInTouchMode(false);
 
         scrollerTask = new Runnable() {
 
@@ -91,7 +86,7 @@ public class StickViewScrollView extends ScrollView {
             @Override
             public void run() {
                 if (mAutoFillView == null)
-                    throw new IllegalStateException("StickView can not be null");
+                    throw new IllegalStateException("StickView can not be null,Please check you have set");
                 ViewGroup.LayoutParams lp = mAutoFillView.getLayoutParams();
                 int[] stickViewScrollViewCoor = new int[2];
                 StickViewScrollView.this.getLocationOnScreen(stickViewScrollViewCoor);
