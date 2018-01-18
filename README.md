@@ -1,7 +1,8 @@
 **前言，一天在点外卖的时候，注意到饿了么列表页的滑动效果不错，但是觉得其中的手势滑动还是挺复杂的，正好又碰到了在熟悉Touch事件的理解当中，所以就抽空对着饿了么的列表页面尝试写写这个效果**
 
 ## 1.先贴一个实现的效果图
-![](https://user-gold-cdn.xitu.io/2018/1/17/161024c1b081e3b6?w=283&h=500&f=gif&s=1838673)
+![image](https://github.com/WelliJohn/StickScrollView/blob/master/imgs/%E4%BB%BF%E9%A5%BF%E4%BA%86%E4%B9%88%E5%88%97%E8%A1%A8%E9%A1%B5.gif?raw=true)
+
 
 ## 2.引入
 ```
@@ -88,5 +89,5 @@ dependencies {
 * 我们在使用的时候，需要调用mStickScrollView.setContentView(mContentView);mLLStickList就是我们需要StickHeader+列表的部分，如果你没有StickHeader的话，那么直接设置列表进来也可以，总之，你想滑动到哪个位置接下来滑动就是单纯下面的部分滑动，那你就把下面的View整体设置为mContentView。刚刚那个的ContentView是id为ll_stick_list的View。
 * 另外在这里ScrollViewWithStickHeader增加autoscroll属性，默认是关闭的，如果autoscroll:true的话，在我们手指放开的时候，contentView会判断是否自动滑动到顶部还是隐藏不见。
 
-![自动滚动的效果图](https://user-gold-cdn.xitu.io/2017/12/4/1601f8930ef2b754?w=282&h=500&f=gif&s=2224891)
+![自动滚动的效果图](https://github.com/WelliJohn/StickScrollView/blob/master/imgs/scrollsnap.gif?raw=true)
 
