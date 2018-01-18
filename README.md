@@ -90,4 +90,3 @@ dependencies {
 
 ![自动滚动的效果图](https://user-gold-cdn.xitu.io/2017/12/4/1601f8930ef2b754?w=282&h=500&f=gif&s=2224891)
 
-## 5.[github地址](https://github.com/WelliJohn/StickScrollView)，欢迎star或者fork
