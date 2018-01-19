@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,8 +10,8 @@
     <wellijohn.org.scrollviewwithstickheader.ScrollViewWithStickHeader
         android:id="@+id/stick_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/ll"
@@ -131,6 +131,17 @@
 
     </wellijohn.org.scrollviewwithstickheader.ScrollViewWithStickHeader>
 
+
+
+    <TextView
+        android:id="@+id/tv_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/btn_yellow_full_small_corner_bg"
+        android:layout_marginTop="100dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="我是底部" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -144,4 +155,4 @@
         android:text="aaaaaaa"
         android:visibility="gone" />
 
-</LinearLayout>
+</RelativeLayout>

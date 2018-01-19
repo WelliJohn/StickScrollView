@@ -1,4 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group='com.github.WelliJohn'
 android {
     compileSdkVersion 25
 
@@ -20,7 +23,7 @@ android {
     }
 
 }
-apply from:'./jcenter.gradle'
+//apply from:'./jcenter.gradle'
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')

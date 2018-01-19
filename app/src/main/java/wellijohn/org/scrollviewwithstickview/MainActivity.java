@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ScrollViewWithStickHeader mStickScrollView;
     private LinearLayout mLl;
     private ChildRecyclerView mCrv;
+    private View mViewBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         initUI();
         mStickScrollView.setContentView(mLLStickList);
 
+        mStickScrollView.setBottomView(mViewBottom);
 //        LinearLayoutManager llRight = new LinearLayoutManager(this);
 //        mCrv.setLayoutManager(llRight);
 //        mCrv.setAdapter(new RVRightListAdapter());
@@ -76,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         mButton = (Button) findViewById(R.id.button);
         mStickScrollView = (ScrollViewWithStickHeader) findViewById(R.id.stick_scroll_view);
         mLl = (LinearLayout) findViewById(R.id.ll);
+        mViewBottom = (View) findViewById(R.id.tv_bottom);
 //        mCrv = (ChildRecyclerView) findViewById(R.id.crv);
 
     }

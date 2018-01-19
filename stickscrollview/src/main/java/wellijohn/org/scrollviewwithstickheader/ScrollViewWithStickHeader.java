@@ -43,6 +43,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
     private boolean mIsVisible;
 
     private Rect rect = new Rect();
+    private View mBottomView;
 
 
     public ScrollViewWithStickHeader(Context context) {
@@ -105,7 +106,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
                 int tempStickHeight = viewPageCoor[1] - autoFillCoor[1];
 
                 ViewGroup.LayoutParams vpLp = tempViewPager.getLayoutParams();
-                vpLp.height = contentHeight - tempStickHeight;
+                vpLp.height = contentHeight - tempStickHeight - (mBottomView != null ? mBottomView.getHeight() : 0);
                 tempViewPager.setLayoutParams(vpLp);
 
             }
@@ -144,6 +145,11 @@ public class ScrollViewWithStickHeader extends ScrollView {
     public void setContentView(View paramAutoFillView) {
         this.mAutoFillView = paramAutoFillView;
     }
+
+    public void setBottomView(View paramBottomView) {
+        this.mBottomView = paramBottomView;
+    }
+
 
     public void startScrollerTask() {
         initialPosition = getScrollY();

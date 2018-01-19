@@ -27,4 +27,7 @@ dependencies {
 //    compile 'wellijohn.org:stickscrollview:0.0.8'
 //    compile 'wellijohn.org.tvanim:animtv:1.0.0'
     implementation 'com.android.support:design:25.4.0'
+
+//    implementation 'com.github.WelliJohn:StickScrollView:0.0.1'
+
 }
