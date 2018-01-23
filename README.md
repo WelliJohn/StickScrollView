@@ -14,7 +14,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.jitpack:android-example:1.0.1'
+    com.github.WelliJohn:StickScrollView:0.0.3
 }
 ```
 
