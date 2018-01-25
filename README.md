@@ -1,5 +1,6 @@
 **前言，一天在点外卖的时候，注意到饿了么列表页的滑动效果不错，但是觉得其中的手势滑动还是挺复杂的，正好又碰到了在熟悉Touch事件的理解当中，所以就抽空对着饿了么的列表页面尝试写写这个效果**
-
+## APK下载地址
+![stickscrollview](https://github.com/WelliJohn/charts/blob/master/imgs/QR_code_258.png?raw=true)
 ## 1.先贴一个实现的效果图
 ![image](https://github.com/WelliJohn/StickScrollView/blob/master/imgs/%E4%BB%BF%E9%A5%BF%E4%BA%86%E4%B9%88%E5%88%97%E8%A1%A8%E9%A1%B5.gif?raw=true)
 
@@ -14,7 +15,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.jitpack:android-example:1.0.1'
+    com.github.WelliJohn:StickScrollView:0.0.3
 }
 ```
 
