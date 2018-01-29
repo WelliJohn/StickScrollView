@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ScrollView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import wellijohn.org.scrollviewwithstickheader.utils.UIUtil;
 
 /**
@@ -43,7 +46,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
     private boolean mIsVisible;
 
     private Rect rect = new Rect();
-    private View mBottomView;
+    private ArrayList<View> mSuspensionViews = new ArrayList<>();
 
 
     public ScrollViewWithStickHeader(Context context) {
@@ -106,7 +109,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
                 int tempStickHeight = viewPageCoor[1] - autoFillCoor[1];
 
                 ViewGroup.LayoutParams vpLp = tempViewPager.getLayoutParams();
-                vpLp.height = contentHeight - tempStickHeight - (mBottomView != null ? mBottomView.getHeight() : 0);
+                vpLp.height = contentHeight - tempStickHeight - getSuspensionHeight();
                 tempViewPager.setLayoutParams(vpLp);
 
             }
@@ -146,8 +149,8 @@ public class ScrollViewWithStickHeader extends ScrollView {
         this.mAutoFillView = paramAutoFillView;
     }
 
-    public void setBottomView(View paramBottomView) {
-        this.mBottomView = paramBottomView;
+    public void setSuspensionView(View... paramView) {
+        mSuspensionViews.addAll(Arrays.asList(paramView));
     }
 
 
@@ -217,4 +220,13 @@ public class ScrollViewWithStickHeader extends ScrollView {
     public boolean isNeedAutoScroll() {
         return mIsNeedAutoScroll;
     }
+
+    public int getSuspensionHeight() {
+        int height = 0;
+        for (View view : mSuspensionViews) {
+            height += view.getHeight();
+        }
+        return height;
+    }
+
 }
