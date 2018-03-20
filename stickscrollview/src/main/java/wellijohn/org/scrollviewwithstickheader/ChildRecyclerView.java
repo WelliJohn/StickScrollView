@@ -2,6 +2,7 @@ package wellijohn.org.scrollviewwithstickheader;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -19,9 +20,6 @@ public class ChildRecyclerView extends RecyclerView {
     private static final String TAG = "MyRecyclerView";
 
     private float mLastY = 0;
-
-    private boolean isScrolledToTop = true;
-    private boolean isScrolledToBottom = false;
 
     private ScrollViewWithStickHeader mScrollViewWithStickHeader;
 
@@ -53,32 +51,17 @@ public class ChildRecyclerView extends RecyclerView {
         minPageSlop = ViewConfiguration.get(getContext()).getScaledPagingTouchSlop();
     }
 
-    @Override
-    protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
-        super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
-        if (scrollY == 0) {
-            isScrolledToTop = clampedY;
-            isScrolledToBottom = false;
-        } else {
-            isScrolledToTop = false;
-            isScrolledToBottom = clampedY;
-        }
+
+    private boolean isScrolledToTop() {
+        return getLayoutManager() instanceof LinearLayoutManager
+                && ((LinearLayoutManager) (getLayoutManager())).findFirstCompletelyVisibleItemPosition() == 0;
     }
-//
-//    @Override
-//    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-//        super.onScrollChanged(l, t, oldl, oldt);
-//        if (getScrollY() == 0) {
-//            isScrolledToTop = true;
-//            isScrolledToBottom = false;
-//        } else if (getScrollY() + getHeight() - getPaddingTop() - getPaddingBottom() == getChildAt(0).getHeight()) {
-//            isScrolledToBottom = true;
-//            isScrolledToTop = false;
-//        } else {
-//            isScrolledToTop = false;
-//            isScrolledToBottom = false;
-//        }
-//    }
+
+    private boolean isScrolledToBottom() {
+        return getLayoutManager() instanceof LinearLayoutManager
+                && ((LinearLayoutManager) (getLayoutManager())).findLastCompletelyVisibleItemPosition() == (getAdapter().getItemCount()-1);
+    }
+
 
 
     @Override
@@ -90,7 +73,7 @@ public class ChildRecyclerView extends RecyclerView {
             mLastX = event.getX();
             mLastY = event.getY();
             //首先判断外层ScrollView是否滑动到底部
-            if (mScrollViewWithStickHeader.isBottom()) {
+            if (mScrollViewWithStickHeader.isBottom() || (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop())) {
                 getParent().requestDisallowInterceptTouchEvent(true);
                 return super.onTouchEvent(event);
             } else {
@@ -101,15 +84,7 @@ public class ChildRecyclerView extends RecyclerView {
         }
         if (action == MotionEvent.ACTION_MOVE) {
             float nowY = event.getY();
-            if (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
-                if (Math.abs(event.getX() - mLastX) < minPageSlop) {
-                    getParent().requestDisallowInterceptTouchEvent(false);
-                    return super.onTouchEvent(event);
-                } else {
-                    getParent().requestDisallowInterceptTouchEvent(false);
-                    return false;
-                }
-            } else if (mScrollViewWithStickHeader.isBottom() && !isScrolledToBottom && nowY - mLastY < 0) {
+            if (mScrollViewWithStickHeader.isBottom() && !isScrolledToBottom() && nowY - mLastY < 0) {
                 if (Math.abs(event.getX() - mLastX) < minPageSlop) {
                     getParent().requestDisallowInterceptTouchEvent(true);
                     return super.onTouchEvent(event);
@@ -117,7 +92,7 @@ public class ChildRecyclerView extends RecyclerView {
                     getParent().requestDisallowInterceptTouchEvent(true);
                     return false;
                 }
-            } else if (mScrollViewWithStickHeader.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
+            } else if (mScrollViewWithStickHeader.isBottom() && !isScrolledToTop() && nowY - mLastY > 0) {
                 if (Math.abs(event.getX() - mLastX) < minPageSlop) {
                     getParent().requestDisallowInterceptTouchEvent(true);
                     return super.onTouchEvent(event);
