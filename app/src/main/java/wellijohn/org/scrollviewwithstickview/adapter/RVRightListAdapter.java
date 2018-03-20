@@ -18,8 +18,9 @@ import wellijohn.org.scrollviewwithstickview.R;
 public class RVRightListAdapter extends RecyclerView.Adapter<RVRightListAdapter.ViewHolder> {
 
 
-    private String[] foods={"糖醋里脊","酸辣土豆丝","豆腐","上汤菠菜","红烧肉"
-            ,"茶树菇","干菜刀豆","开背虾","清炖牛肉","红烧鱼块","红烧肉","茶树菇"};
+    private String[] foods = {"糖醋里脊1", "酸辣土豆丝2", "豆腐3", "上汤菠菜4", "红烧肉5"
+            , "茶树菇6", "干菜刀豆7", "开背虾8", "清炖牛肉9", "红烧鱼块10", "红烧肉11", "茶树菇12"
+            , "茶树菇13", "干菜刀豆14", "开背虾15", "清炖牛肉16", "红烧鱼块17", "红烧肉18", "茶树菇19"};
 
 
     @Override
@@ -54,7 +55,7 @@ public class RVRightListAdapter extends RecyclerView.Adapter<RVRightListAdapter.
         public ViewHolder(View itemView) {
             super(itemView);
             tv = (TextView) itemView.findViewById(R.id.tv);
-            iv= (ImageView) itemView.findViewById(R.id.iv);
+            iv = (ImageView) itemView.findViewById(R.id.iv);
         }
     }
 }

@@ -46,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initUI();
         mStickScrollView.setContentView(mLLStickList);
-
-        mStickScrollView.setBottomView(mViewBottom);
+        mStickScrollView.setSuspensionView(mViewBottom);
 //        LinearLayoutManager llRight = new LinearLayoutManager(this);
 //        mCrv.setLayoutManager(llRight);
 //        mCrv.setAdapter(new RVRightListAdapter());
