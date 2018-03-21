@@ -36,7 +36,7 @@ public class TestFragment extends Fragment {
     private RecyclerView mChildRecyclerviewRight;
     private ReListAdapter mReListAdapter;
     private LinearLayoutManager mLlRight;
-    private boolean move;
+//    private boolean move;
     private boolean mIsLeftTouch = true;
     private int mOldLeftIndex;
     private RecyclerViewListener mRecyclerViewListener;
@@ -89,17 +89,14 @@ public class TestFragment extends Fragment {
                     //然后区分情况
                     if (scrollIndex <= firstItem) {
                         //当要置顶的项在当前显示的第一个项的前面时
-                        mChildRecyclerviewRight.smoothScrollToPosition(scrollIndex);
+                        mLlRight.scrollToPositionWithOffset(scrollIndex, 0);
                     } else if (scrollIndex <= lastItem) {
                         //当要置顶的项已经在屏幕上显示时，计算它离屏幕原点的距离
                         int top = mChildRecyclerviewRight.getChildAt(scrollIndex - firstItem).getTop();
                         mChildRecyclerviewRight.smoothScrollBy(0, top);
                     } else {
                         //当要置顶的项在当前显示的最后一项的后面时
-//            llRight.scrollToPositionWithOffset(scrollIndex, 0);
-                        mChildRecyclerviewRight.smoothScrollToPosition(scrollIndex);
-                        //记录当前需要在RecyclerView滚动监听里面继续第二次滚动
-                        move = true;
+                        mLlRight.scrollToPositionWithOffset(scrollIndex, 0);
                     }
                     mOldLeftIndex = index;
                 }
@@ -146,9 +143,9 @@ public class TestFragment extends Fragment {
                     leftLocation();
                 }
                 mIsLeftTouch = false;
-                if (move) {
-                    rightRvScoll(recyclerView);
-                }
+//                if (move) {
+//                    rightRvScoll(recyclerView);
+//                }
             }
         }
 
@@ -157,17 +154,17 @@ public class TestFragment extends Fragment {
         }
 
 
-        private void rightRvScoll(RecyclerView paramRv) {
-            move = false;
-            //获取要置顶的项在当前屏幕的位置，mIndex是记录的要置顶项在RecyclerView中的位置
-            int n = mIndex - mLlRight.findFirstVisibleItemPosition();
-            if (0 <= n && n < paramRv.getChildCount()) {
-                //获取要置顶的项顶部离RecyclerView顶部的距离
-                int top = paramRv.getChildAt(n).getTop();
-                //最后的移动
-                paramRv.smoothScrollBy(0, top);
-            }
-        }
+//        private void rightRvScoll(RecyclerView paramRv) {
+//            move = false;
+//            //获取要置顶的项在当前屏幕的位置，mIndex是记录的要置顶项在RecyclerView中的位置
+//            int n = mIndex - mLlRight.findFirstVisibleItemPosition();
+//            if (0 <= n && n < paramRv.getChildCount()) {
+//                //获取要置顶的项顶部离RecyclerView顶部的距离
+//                int top = paramRv.getChildAt(n).getTop();
+//                //最后的移动
+//                paramRv.smoothScrollBy(0, top);
+//            }
+//        }
 
         private void leftLocation() {
             int firstItem = mLlRight.findFirstVisibleItemPosition();
