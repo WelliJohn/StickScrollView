@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import wellijohn.org.scrollviewwithstickview.R;
+import wellijohn.org.scrollviewwithstickview.constant.Constant;
 
 /**
  * @author: JiangWeiwei
@@ -18,9 +19,7 @@ import wellijohn.org.scrollviewwithstickview.R;
 public class RVRightListAdapter extends RecyclerView.Adapter<RVRightListAdapter.ViewHolder> {
 
 
-    private String[] foods = {"糖醋里脊1", "酸辣土豆丝2", "豆腐3", "上汤菠菜4", "红烧肉5"
-            , "茶树菇6", "干菜刀豆7", "开背虾8", "清炖牛肉9", "红烧鱼块10", "红烧肉11", "茶树菇12"
-            , "茶树菇13", "干菜刀豆14", "开背虾15", "清炖牛肉16", "红烧鱼块17", "红烧肉18", "茶树菇19"};
+
 
 
     @Override
@@ -31,7 +30,7 @@ public class RVRightListAdapter extends RecyclerView.Adapter<RVRightListAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tv.setText(foods[position]);
+        holder.tv.setText(Constant.foods[position]);
         holder.iv.setImageResource(R.drawable.food);
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -43,7 +42,7 @@ public class RVRightListAdapter extends RecyclerView.Adapter<RVRightListAdapter.
 
     @Override
     public int getItemCount() {
-        return foods.length;
+        return Constant.foods.length;
     }
 
     final class ViewHolder extends RecyclerView.ViewHolder {

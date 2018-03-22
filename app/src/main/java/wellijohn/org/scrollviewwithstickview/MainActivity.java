@@ -6,18 +6,17 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import wellijohn.org.scrollviewwithstickview.adapter.ReListAdapter;
-import wellijohn.org.scrollviewwithstickview.adapter.TabFragmentAdapter;
 import wellijohn.org.scrollviewwithstickheader.ChildRecyclerView;
 import wellijohn.org.scrollviewwithstickheader.ChildScrollView;
 import wellijohn.org.scrollviewwithstickheader.ScrollViewWithStickHeader;
+import wellijohn.org.scrollviewwithstickview.adapter.ReListAdapter;
+import wellijohn.org.scrollviewwithstickview.adapter.TabFragmentAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,15 +53,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void initUI() {
 
-        mVp.setAdapter(new TabFragmentAdapter(getSupportFragmentManager()));
+        mTabFragmentAdapter = new TabFragmentAdapter(getSupportFragmentManager());
+        mVp.setAdapter(mTabFragmentAdapter);
         mVp.addOnPageChangeListener(
                 new TabLayout.TabLayoutOnPageChangeListener(mOrderManagerTabs));
         mVp.setOffscreenPageLimit(3);
         mOrderManagerTabs.setupWithViewPager(mVp);
-        WebSettings webSettings = mWebview.getSettings();
-        //设置WebView属性，能够执行Javascript脚本
-        webSettings.setJavaScriptEnabled(true);
-        mWebview.loadUrl("https://segmentfault.com/u/wellijhon_58622d2f61c2d");
+//        WebSettings webSettings = mWebview.getSettings();
+//        //设置WebView属性，能够执行Javascript脚本
+//        webSettings.setJavaScriptEnabled(true);
+//        mWebview.loadUrl("https://segmentfault.com/u/wellijhon_58622d2f61c2d");
 
 //        Log.d(TAG, "initUI: " + (mLl.getDescendantFocusability() == ViewGroup.FOCUS_BLOCK_DESCENDANTS));
     }
@@ -81,5 +81,7 @@ public class MainActivity extends AppCompatActivity {
         mViewBottom = (View) findViewById(R.id.tv_bottom);
 //        mCrv = (ChildRecyclerView) findViewById(R.id.crv);
 
+
     }
+
 }
