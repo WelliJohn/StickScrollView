@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import wellijohn.org.scrollviewwithstickheader.NoSlideLayoutManager;
 import wellijohn.org.scrollviewwithstickview.MainActivity;
 import wellijohn.org.scrollviewwithstickview.R;
 import wellijohn.org.scrollviewwithstickview.adapter.RVRightListAdapter;
@@ -54,14 +55,14 @@ public class TestFragment extends LazyFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mChildRecyclerviewRight.post(new Runnable() {
-            @Override
-            public void run() {
-                ViewGroup.LayoutParams layoutParams = mChildRecyclerviewRight.getLayoutParams();
-                layoutParams.height = 1400;
-                mChildRecyclerviewRight.setLayoutParams(layoutParams);
-            }
-        });
+//        mChildRecyclerviewRight.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                ViewGroup.LayoutParams layoutParams = mChildRecyclerviewRight.getLayoutParams();
+//                layoutParams.height = 1400;
+//                mChildRecyclerviewRight.setLayoutParams(layoutParams);
+//            }
+//        });
     }
 
 
@@ -119,7 +120,7 @@ public class TestFragment extends LazyFragment {
     private void initUI() {
         mRecyclerViewListener = new RecyclerViewListener();
 
-        mLlRight = new LinearLayoutManager(getActivity());
+        mLlRight = new NoSlideLayoutManager(getActivity());
 
         mReListAdapter = new ReListAdapter();
         LinearLayoutManager ll = new LinearLayoutManager(getActivity());

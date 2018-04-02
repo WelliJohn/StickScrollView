@@ -59,21 +59,33 @@ public class ChildRecyclerView extends RecyclerView {
 
     private boolean isScrolledToBottom() {
         return getLayoutManager() instanceof LinearLayoutManager
-                && ((LinearLayoutManager) (getLayoutManager())).findLastCompletelyVisibleItemPosition() == (getAdapter().getItemCount()-1);
+                && ((LinearLayoutManager) (getLayoutManager())).findLastCompletelyVisibleItemPosition() == (getAdapter().getItemCount() - 1);
     }
 
-
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            LayoutManager layoutManager = getLayoutManager();
+            boolean isRVScroll =
+                    mScrollViewWithStickHeader.isBottom() || (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop());
+            if (layoutManager instanceof NoSlideLayoutManager) {
+                ((NoSlideLayoutManager) layoutManager).setCanVerScroll(isRVScroll);
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (mScrollViewWithStickHeader == null) return super.onTouchEvent(event);
         int action = event.getAction();
-
         if (action == MotionEvent.ACTION_DOWN) {
+            boolean isRVScroll =
+                    mScrollViewWithStickHeader.isBottom() || (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop());
             mLastX = event.getX();
             mLastY = event.getY();
             //首先判断外层ScrollView是否滑动到底部
-            if (mScrollViewWithStickHeader.isBottom() || (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop())) {
+            if (isRVScroll) {
                 getParent().requestDisallowInterceptTouchEvent(true);
                 return super.onTouchEvent(event);
             } else {
@@ -113,4 +125,5 @@ public class ChildRecyclerView extends RecyclerView {
 
         return super.onTouchEvent(event);
     }
+
 }

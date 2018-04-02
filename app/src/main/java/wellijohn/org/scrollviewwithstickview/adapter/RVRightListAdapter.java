@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import wellijohn.org.scrollviewwithstickview.R;
 import wellijohn.org.scrollviewwithstickview.constant.Constant;
@@ -32,12 +33,12 @@ public class RVRightListAdapter extends RecyclerView.Adapter<RVRightListAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tv.setText(Constant.foods[position]);
         holder.iv.setImageResource(R.drawable.food);
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(v.getContext(),"点击了",Toast.LENGTH_LONG).show();
-//            }
-//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),"点击了",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
