@@ -9,6 +9,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
+import wellijohn.org.scrollviewwithstickheader.layoutmanager.NoSlideLinearLayoutManager;
+
 /**
  * @author: JiangWeiwei
  * @time: 2017/11/3-18:28
@@ -68,8 +70,8 @@ public class ChildRecyclerView extends RecyclerView {
             LayoutManager layoutManager = getLayoutManager();
             boolean isRVScroll =
                     mScrollViewWithStickHeader.isBottom() || (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop());
-            if (layoutManager instanceof NoSlideLayoutManager) {
-                ((NoSlideLayoutManager) layoutManager).setCanVerScroll(isRVScroll);
+            if (layoutManager instanceof NoSlideLinearLayoutManager) {
+                ((NoSlideLinearLayoutManager) layoutManager).setCanVerScroll(isRVScroll);
             }
         }
         return super.dispatchTouchEvent(ev);

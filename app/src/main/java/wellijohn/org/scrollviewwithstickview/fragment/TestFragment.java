@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import wellijohn.org.scrollviewwithstickheader.NoSlideLayoutManager;
+import wellijohn.org.scrollviewwithstickheader.layoutmanager.NoSlideLinearLayoutManager;
 import wellijohn.org.scrollviewwithstickview.MainActivity;
 import wellijohn.org.scrollviewwithstickview.R;
 import wellijohn.org.scrollviewwithstickview.adapter.RVRightListAdapter;
@@ -120,7 +120,7 @@ public class TestFragment extends LazyFragment {
     private void initUI() {
         mRecyclerViewListener = new RecyclerViewListener();
 
-        mLlRight = new NoSlideLayoutManager(getActivity());
+        mLlRight = new NoSlideLinearLayoutManager(getActivity());
 
         mReListAdapter = new ReListAdapter();
         LinearLayoutManager ll = new LinearLayoutManager(getActivity());

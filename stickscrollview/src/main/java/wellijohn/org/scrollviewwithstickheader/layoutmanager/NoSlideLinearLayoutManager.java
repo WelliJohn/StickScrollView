@@ -1,4 +1,4 @@
-package wellijohn.org.scrollviewwithstickheader;
+package wellijohn.org.scrollviewwithstickheader.layoutmanager;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,11 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
  * @email: jiangweiwei@qccr.com
  * @desc:
  */
-public class NoSlideLayoutManager extends LinearLayoutManager {
+public class NoSlideLinearLayoutManager extends LinearLayoutManager {
 
     private boolean isCanVerScroll;
 
-    public NoSlideLayoutManager(Context context) {
+    public NoSlideLinearLayoutManager(Context context) {
         super(context);
     }
 
