@@ -48,6 +48,13 @@ public class ScrollViewWithStickHeader extends ScrollView {
     private Rect rect = new Rect();
     private ArrayList<View> mSuspensionViews = new ArrayList<>();
 
+    private ChildRecyclerView mChildRecyclerView;
+
+    private boolean mIsDragging;
+    private float mDownY;
+    private int mScaledTouchSlop;
+    private float mCurrY;
+
 
     public ScrollViewWithStickHeader(Context context) {
         this(context, null);
@@ -63,6 +70,8 @@ public class ScrollViewWithStickHeader extends ScrollView {
         TypedArray ta = context.getResources().obtainAttributes(attrs, R.styleable.ScrollViewWithStickHeader);
         mIsNeedAutoScroll = ta.getBoolean(R.styleable.ScrollViewWithStickHeader_autoscroll, false);
         ta.recycle();
+
+        mScaledTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
         scrollerTask = new Runnable() {
 
@@ -112,11 +121,17 @@ public class ScrollViewWithStickHeader extends ScrollView {
                 vpLp.height = contentHeight - tempStickHeight - getSuspensionHeight();
                 tempViewPager.setLayoutParams(vpLp);
 
+                mChildRecyclerView = findChildView(ScrollViewWithStickHeader.this, ChildRecyclerView.class);
+
             }
         });
-
-
     }
+
+
+    public boolean isScroll() {
+        return Math.abs(mCurrY - mDownY) > mScaledTouchSlop;
+    }
+
 
     private void checkNotNull() {
         if (mAutoFillView == null)
@@ -159,7 +174,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
         ScrollViewWithStickHeader.this.postDelayed(scrollerTask, newCheck);
     }
 
-    private View findChildView(View paramView, Class<?> t) {
+    private <T extends View> T findChildView(View paramView, Class<T> t) {
         View childView;
         if (paramView instanceof ViewGroup) {
             ViewGroup tempVg = (ViewGroup) paramView;
@@ -168,11 +183,11 @@ public class ScrollViewWithStickHeader extends ScrollView {
                 View tempView = tempVg.getChildAt(index);
                 if (t.isInstance(tempView)) {
                     childView = tempView;
-                    return childView;
+                    return (T) childView;
                 } else if (tempView instanceof ViewGroup) {
                     View view = findChildView(tempView, t);
                     if (view != null) {
-                        return view;
+                        return (T) view;
                     }
                 }
             }
@@ -203,10 +218,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
     public boolean onTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
         switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                break;
-            case MotionEvent.ACTION_MOVE:
-                break;
             case MotionEvent.ACTION_UP:
                 if (mIsNeedAutoScroll)
                     startScrollerTask();
@@ -216,6 +227,23 @@ public class ScrollViewWithStickHeader extends ScrollView {
 
     }
 
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        int action = ev.getAction();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                if (mChildRecyclerView != null && mChildRecyclerView.isScrolledToTop() && !isBottom()) {
+                    post(new Runnable() {
+                        @Override
+                        public void run() {
+                            fullScroll(ScrollView.FOCUS_DOWN);
+                        }
+                    });
+                    return true;
+                }
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
 
     public boolean isNeedAutoScroll() {
         return mIsNeedAutoScroll;
