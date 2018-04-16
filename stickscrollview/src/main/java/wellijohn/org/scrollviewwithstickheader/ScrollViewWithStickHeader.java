@@ -123,11 +123,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
                 tempViewPager.setLayoutParams(vpLp);
 
                 mChildRecyclerView = findChildView(ScrollViewWithStickHeader.this, ChildRecyclerView.class);
-                if (mChildRecyclerView != null) {
-                    ViewGroup.LayoutParams layoutParams = mChildRecyclerView.getLayoutParams();
-                    layoutParams.height = vpHeight;
-                    mChildRecyclerView.setLayoutParams(layoutParams);
-                }
 
             }
         });
