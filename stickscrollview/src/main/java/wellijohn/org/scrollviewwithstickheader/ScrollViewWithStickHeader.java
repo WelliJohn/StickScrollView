@@ -117,11 +117,17 @@ public class ScrollViewWithStickHeader extends ScrollView {
                 mAutoFillView.getLocationOnScreen(autoFillCoor);
                 int tempStickHeight = viewPageCoor[1] - autoFillCoor[1];
 
+                int vpHeight = contentHeight - tempStickHeight - getSuspensionHeight();
                 ViewGroup.LayoutParams vpLp = tempViewPager.getLayoutParams();
-                vpLp.height = contentHeight - tempStickHeight - getSuspensionHeight();
+                vpLp.height = vpHeight;
                 tempViewPager.setLayoutParams(vpLp);
 
                 mChildRecyclerView = findChildView(ScrollViewWithStickHeader.this, ChildRecyclerView.class);
+                if (mChildRecyclerView != null) {
+                    ViewGroup.LayoutParams layoutParams = mChildRecyclerView.getLayoutParams();
+                    layoutParams.height = vpHeight;
+                    mChildRecyclerView.setLayoutParams(layoutParams);
+                }
 
             }
         });
