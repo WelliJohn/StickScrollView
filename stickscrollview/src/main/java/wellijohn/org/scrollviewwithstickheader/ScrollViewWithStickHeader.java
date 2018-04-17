@@ -234,12 +234,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 if (mChildRecyclerView != null && mChildRecyclerView.isScrolledToTop() && !isBottom()) {
-                    post(new Runnable() {
-                        @Override
-                        public void run() {
-                            fullScroll(ScrollView.FOCUS_DOWN);
-                        }
-                    });
                     return true;
                 }
         }
