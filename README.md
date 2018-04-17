@@ -15,7 +15,7 @@ allprojects {
 }
 
 dependencies {
-    com.github.WelliJohn:StickScrollView:0.0.9//最新版本号
+    com.github.WelliJohn:StickScrollView:1.0.8
 }
 ```
 
