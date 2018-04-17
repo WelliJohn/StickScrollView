@@ -228,17 +228,17 @@ public class ScrollViewWithStickHeader extends ScrollView {
 
     }
 
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        int action = ev.getAction();
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                if (mChildRecyclerView != null && mChildRecyclerView.isScrolledToTop() && !isBottom()) {
-                    return true;
-                }
-        }
-        return super.onInterceptTouchEvent(ev);
-    }
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent ev) {
+//        int action = ev.getAction();
+//        switch (action) {
+//            case MotionEvent.ACTION_DOWN:
+//                if (mChildRecyclerView != null && mChildRecyclerView.isScrolledToTop() && !isBottom()) {
+//                    return true;
+//                }
+//        }
+//        return super.onInterceptTouchEvent(ev);
+//    }
 
     public boolean isNeedAutoScroll() {
         return mIsNeedAutoScroll;

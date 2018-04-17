@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import wellijohn.org.scrollviewwithstickheader.layoutmanager.NoSlideLinearLayoutManager;
 import wellijohn.org.scrollviewwithstickview.MainActivity;
 import wellijohn.org.scrollviewwithstickview.R;
 import wellijohn.org.scrollviewwithstickview.adapter.RVRightListAdapter;
@@ -28,7 +29,7 @@ public class TestFragment extends LazyFragment {
     private RecyclerView mChildRecyclerview;
     private RecyclerView mChildRecyclerviewRight;
     private ReListAdapter mReListAdapter;
-    private LinearLayoutManager mLlRight;
+    private NoSlideLinearLayoutManager mLlRight;
     private boolean move;
     private boolean mIsLeftTouch = true;
     private int mOldLeftIndex;
@@ -119,10 +120,10 @@ public class TestFragment extends LazyFragment {
     private void initUI() {
         mRecyclerViewListener = new RecyclerViewListener();
 
-        mLlRight = new LinearLayoutManager(getActivity());
+        mLlRight = new NoSlideLinearLayoutManager(getActivity());
 
         mReListAdapter = new ReListAdapter();
-        LinearLayoutManager ll = new LinearLayoutManager(getActivity());
+        LinearLayoutManager ll = new NoSlideLinearLayoutManager(getActivity());
         mChildRecyclerview.setLayoutManager(ll);
         mChildRecyclerview.setAdapter(mReListAdapter);
         mReListAdapter.setOnRVItemClickListener(new OnRVItemClickListener<String>() {
