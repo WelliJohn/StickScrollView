@@ -11,7 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
  */
 public class NoSlideLinearLayoutManager extends LinearLayoutManager {
 
-    private boolean isCanVerScroll;
+    private boolean isCanVerScroll = true;
 
     public NoSlideLinearLayoutManager(Context context) {
         super(context);
