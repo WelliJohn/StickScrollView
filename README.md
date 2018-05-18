@@ -15,7 +15,7 @@ allprojects {
 }
 
 dependencies {
-    com.github.WelliJohn:StickScrollView:1.0.8
+    com.github.WelliJohn:StickScrollView:1.0.9
 }
 ```
 
