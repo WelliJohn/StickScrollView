@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -18,7 +19,7 @@ import wellijohn.org.scrollviewwithstickheader.layoutmanager.NoSlideLinearLayout
  * @desc:
  */
 public class ChildRecyclerView extends RecyclerView {
-
+    LayoutManager mLm;
     private static final String TAG = "MyRecyclerView";
 
     private float mLastY = 0;
@@ -54,22 +55,41 @@ public class ChildRecyclerView extends RecyclerView {
     }
 
 
-    private boolean isScrolledToTop() {
-        return getLayoutManager() instanceof LinearLayoutManager
-                && ((LinearLayoutManager) (getLayoutManager())).findFirstCompletelyVisibleItemPosition() == 0;
+    public boolean isScrolledToTop() {
+        boolean isLM = getLayoutManager() instanceof LinearLayoutManager;
+        if (isLM) {
+            boolean isTop = ((LinearLayoutManager) (getLayoutManager())).findFirstCompletelyVisibleItemPosition() == 0;
+            return isTop;
+        } else {
+            return false;
+        }
     }
 
-    private boolean isScrolledToBottom() {
+    public boolean isScrolledToBottom() {
         return getLayoutManager() instanceof LinearLayoutManager
                 && ((LinearLayoutManager) (getLayoutManager())).findLastCompletelyVisibleItemPosition() == (getAdapter().getItemCount() - 1);
     }
 
+
+
+    @Override
+    public void setLayoutManager(LayoutManager layout) {
+        mLm = layout;
+        super.setLayoutManager(layout);
+    }
+
+    float downY = 0;
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+        int action = ev.getAction();
+
+        boolean isRVScroll =
+                mScrollViewWithStickHeader.isBottom() || (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop());
+
+        if (action == MotionEvent.ACTION_DOWN) {
+            downY = ev.getY();
             LayoutManager layoutManager = getLayoutManager();
-            boolean isRVScroll =
-                    mScrollViewWithStickHeader.isBottom() || (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop());
             if (layoutManager instanceof NoSlideLinearLayoutManager) {
                 ((NoSlideLinearLayoutManager) layoutManager).setCanVerScroll(isRVScroll);
             }
@@ -77,7 +97,14 @@ public class ChildRecyclerView extends RecyclerView {
         return super.dispatchTouchEvent(ev);
     }
 
-//    @Override
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+
+        Log.d(TAG, "onTouchEvent: ");
+        return super.onTouchEvent(ev);
+    }
+
+    //    @Override
 //    public boolean onTouchEvent(MotionEvent event) {
 //        if (mScrollViewWithStickHeader == null) return super.onTouchEvent(event);
 //        int action = event.getAction();

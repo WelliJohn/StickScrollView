@@ -84,4 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void setRV(RecyclerView RV) {
+        mStickScrollView.setRV((ChildRecyclerView) RV);
+    }
 }

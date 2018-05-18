@@ -2,6 +2,8 @@ package wellijohn.org.scrollviewwithstickheader.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
 
 /**
@@ -26,5 +28,23 @@ public class UIUtil {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    /**
+     * 点击的位置是否在view中
+     * @param view
+     * @param ev
+     * @return
+     */
+    public static boolean inRangeOfView(View view, MotionEvent ev) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        int x = location[0];
+        int y = location[1];
+        if (ev.getX() < x || ev.getX() > (x + view.getWidth()) || ev.getY() < y
+                || ev.getY() > (y + view.getHeight())) {
+            return false;
+        }
+        return true;
     }
 }

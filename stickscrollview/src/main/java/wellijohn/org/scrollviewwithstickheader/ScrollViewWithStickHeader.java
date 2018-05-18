@@ -48,12 +48,12 @@ public class ScrollViewWithStickHeader extends ScrollView {
     private Rect rect = new Rect();
     private ArrayList<View> mSuspensionViews = new ArrayList<>();
 
-    private ChildRecyclerView mChildRecyclerView;
-
     private boolean mIsDragging;
     private float mDownY;
     private int mScaledTouchSlop;
     private float mCurrY;
+
+    private ArrayList<ChildRecyclerView> mListViews = new ArrayList<>();
 
 
     public ScrollViewWithStickHeader(Context context) {
@@ -122,7 +122,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
                 vpLp.height = vpHeight;
                 tempViewPager.setLayoutParams(vpLp);
 
-                mChildRecyclerView = findChildView(ScrollViewWithStickHeader.this, ChildRecyclerView.class);
 
             }
         });
@@ -167,6 +166,17 @@ public class ScrollViewWithStickHeader extends ScrollView {
 
     public void setSuspensionView(View... paramView) {
         mSuspensionViews.addAll(Arrays.asList(paramView));
+    }
+
+    public void setRV(ChildRecyclerView rv) {
+        mListViews.add(rv);
+    }
+
+    private ChildRecyclerView getRV(MotionEvent ev) {
+        for (ChildRecyclerView childRecyclerView : mListViews) {
+            if (UIUtil.inRangeOfView(childRecyclerView,ev)) return childRecyclerView;
+        }
+        return mListViews.get(0);
     }
 
 
@@ -228,17 +238,27 @@ public class ScrollViewWithStickHeader extends ScrollView {
 
     }
 
-//    @Override
-//    public boolean onInterceptTouchEvent(MotionEvent ev) {
-//        int action = ev.getAction();
-//        switch (action) {
-//            case MotionEvent.ACTION_DOWN:
-//                if (mChildRecyclerView != null && mChildRecyclerView.isScrolledToTop() && !isBottom()) {
-//                    return true;
-//                }
-//        }
-//        return super.onInterceptTouchEvent(ev);
-//    }
+
+    float downY = 0;
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        int action = ev.getAction();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                downY = ev.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (isBottom()) {
+                    if (ev.getY() - downY < 0) {
+                        return false;
+                    } else return getRV(ev).isScrolledToTop();
+                }
+                break;
+
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
 
     public boolean isNeedAutoScroll() {
         return mIsNeedAutoScroll;
@@ -251,5 +271,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
         }
         return height;
     }
+
+
 
 }

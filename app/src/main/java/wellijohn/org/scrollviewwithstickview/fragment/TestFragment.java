@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import wellijohn.org.scrollviewwithstickheader.ChildRecyclerView;
 import wellijohn.org.scrollviewwithstickheader.layoutmanager.NoSlideLinearLayoutManager;
 import wellijohn.org.scrollviewwithstickview.MainActivity;
 import wellijohn.org.scrollviewwithstickview.R;
@@ -26,8 +27,8 @@ import wellijohn.org.scrollviewwithstickview.listener.OnRVItemClickListener;
  */
 public class TestFragment extends LazyFragment {
     private static final String KEY_FRAGMENT_INT = "KEY_FRAGMENT_INT";
-    private RecyclerView mChildRecyclerview;
-    private RecyclerView mChildRecyclerviewRight;
+    private ChildRecyclerView mChildRecyclerview;
+    private ChildRecyclerView mChildRecyclerviewRight;
     private ReListAdapter mReListAdapter;
     private NoSlideLinearLayoutManager mLlRight;
     private boolean move;
@@ -67,8 +68,10 @@ public class TestFragment extends LazyFragment {
 
 
     private void initView(View view) {
-        mChildRecyclerview = (RecyclerView) view.findViewById(R.id.child_recyclerview);
-        mChildRecyclerviewRight = (RecyclerView) view.findViewById(R.id.child_recyclerview_right);
+        mChildRecyclerview = (ChildRecyclerView) view.findViewById(R.id.child_recyclerview);
+        mChildRecyclerviewRight = (ChildRecyclerView) view.findViewById(R.id.child_recyclerview_right);
+        mParentActivity.setRV(mChildRecyclerviewRight);
+        mParentActivity.setRV(mChildRecyclerview);
     }
 
     public static Fragment newInstance(int position) {

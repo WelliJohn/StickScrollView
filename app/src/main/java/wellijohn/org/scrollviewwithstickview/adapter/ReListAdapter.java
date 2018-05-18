@@ -19,7 +19,8 @@ import wellijohn.org.scrollviewwithstickview.listener.OnRVItemClickListener;
 public class ReListAdapter extends RecyclerView.Adapter<ReListAdapter.ViewHolder> {
 
 
-    private String[] foods = {"米饭", "招牌菜", "家常风味", "精美甜品", "饮料", "田园时蔬", "美食"};
+    private String[] foods = {"米饭", "招牌菜", "家常风味", "精美甜品", "饮料", "田园时蔬", "美食",
+            "米饭", "招牌菜", "家常风味", "精美甜品", "饮料", "田园时蔬", "美食"};
 
     private OnRVItemClickListener<String> onRVItemClickListener;
 
