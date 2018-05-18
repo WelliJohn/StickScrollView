@@ -174,13 +174,13 @@ public class ScrollViewWithStickHeader extends ScrollView {
 
     private ChildRecyclerView getRV(MotionEvent ev) {
         for (ChildRecyclerView childRecyclerView : mListViews) {
-            if (UIUtil.inRangeOfView(childRecyclerView,ev)) return childRecyclerView;
+            if (UIUtil.inRangeOfView(childRecyclerView, ev)) return childRecyclerView;
         }
         return mListViews.get(0);
     }
 
 
-    public void startScrollerTask() {
+    private void startScrollerTask() {
         initialPosition = getScrollY();
         ScrollViewWithStickHeader.this.postDelayed(scrollerTask, newCheck);
     }
@@ -216,9 +216,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
         super.onScrollChanged(l, t, oldl, oldt);
         if (mAutoFillView == null) return;
         isChildToBottom = t + getHeight() >= getChildAt(0).getMeasuredHeight();
-
         mIsVisible = mAutoFillView.getGlobalVisibleRect(rect);
-
         if (mIsVisible) {
             mIsAutoScrollChild = rect.height() > (mAutoFillView.getHeight() / 3);
         }
@@ -243,19 +241,20 @@ public class ScrollViewWithStickHeader extends ScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        int action = ev.getAction();
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                downY = ev.getY();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if (isBottom()) {
-                    if (ev.getY() - downY < 0) {
-                        return false;
-                    } else return getRV(ev).isScrolledToTop();
-                }
-                break;
+        ChildRecyclerView childRecyclerView = getRV(ev);
+        if (childRecyclerView != null) {
+            int action = ev.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    downY = ev.getY();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    if (isBottom()) {
+                        return !(ev.getY() - downY < 0) && childRecyclerView.isScrolledToTop();
+                    }
+                    break;
 
+            }
         }
         return super.onInterceptTouchEvent(ev);
     }
@@ -271,7 +270,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
         }
         return height;
     }
-
 
 
 }
