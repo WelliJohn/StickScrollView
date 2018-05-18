@@ -48,11 +48,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
     private Rect rect = new Rect();
     private ArrayList<View> mSuspensionViews = new ArrayList<>();
 
-    private boolean mIsDragging;
-    private float mDownY;
-    private int mScaledTouchSlop;
-    private float mCurrY;
-
     private ArrayList<ChildRecyclerView> mListViews = new ArrayList<>();
 
 
@@ -70,8 +65,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
         TypedArray ta = context.getResources().obtainAttributes(attrs, R.styleable.ScrollViewWithStickHeader);
         mIsNeedAutoScroll = ta.getBoolean(R.styleable.ScrollViewWithStickHeader_autoscroll, false);
         ta.recycle();
-
-        mScaledTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
         scrollerTask = new Runnable() {
 
@@ -128,11 +121,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
     }
 
 
-    public boolean isScroll() {
-        return Math.abs(mCurrY - mDownY) > mScaledTouchSlop;
-    }
-
-
     private void checkNotNull() {
         if (mAutoFillView == null)
             throw new IllegalStateException("StickView can not be null,Please check you have set");
@@ -160,17 +148,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
     }
 
 
-    public void setContentView(View paramAutoFillView) {
-        this.mAutoFillView = paramAutoFillView;
-    }
-
-    public void setSuspensionView(View... paramView) {
-        mSuspensionViews.addAll(Arrays.asList(paramView));
-    }
-
-    public void setRV(ChildRecyclerView rv) {
-        mListViews.add(rv);
-    }
 
     private ChildRecyclerView getRV(MotionEvent ev) {
         for (ChildRecyclerView childRecyclerView : mListViews) {
@@ -259,9 +236,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
         return super.onInterceptTouchEvent(ev);
     }
 
-    public boolean isNeedAutoScroll() {
-        return mIsNeedAutoScroll;
-    }
 
     public int getSuspensionHeight() {
         int height = 0;
@@ -270,6 +244,19 @@ public class ScrollViewWithStickHeader extends ScrollView {
         }
         return height;
     }
+
+    public void setContentView(View paramAutoFillView) {
+        this.mAutoFillView = paramAutoFillView;
+    }
+
+    public void setSuspensionView(View... paramView) {
+        mSuspensionViews.addAll(Arrays.asList(paramView));
+    }
+
+    public void setRV(ChildRecyclerView rv) {
+        mListViews.add(rv);
+    }
+
 
 
 }

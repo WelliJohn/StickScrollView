@@ -5,10 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 
 import wellijohn.org.scrollviewwithstickheader.layoutmanager.NoSlideLinearLayoutManager;
 
@@ -19,16 +17,9 @@ import wellijohn.org.scrollviewwithstickheader.layoutmanager.NoSlideLinearLayout
  * @desc:
  */
 public class ChildRecyclerView extends RecyclerView {
-    LayoutManager mLm;
     private static final String TAG = "MyRecyclerView";
 
-    private float mLastY = 0;
-
     private ScrollViewWithStickHeader mScrollViewWithStickHeader;
-
-    private static int minPageSlop;
-
-    private float mLastX;
 
     public ChildRecyclerView(Context context) {
         this(context, null, 0);
@@ -51,42 +42,23 @@ public class ChildRecyclerView extends RecyclerView {
                 mScrollViewWithStickHeader = (ScrollViewWithStickHeader) tempView.getParent();
             }
         });
-        minPageSlop = ViewConfiguration.get(getContext()).getScaledPagingTouchSlop();
     }
 
 
     public boolean isScrolledToTop() {
-        boolean isLM = getLayoutManager() instanceof LinearLayoutManager;
-        if (isLM) {
-            boolean isTop = ((LinearLayoutManager) (getLayoutManager())).findFirstCompletelyVisibleItemPosition() == 0;
-            return isTop;
-        } else {
-            return false;
-        }
+        return getLayoutManager() instanceof LinearLayoutManager &&
+                ((LinearLayoutManager) (getLayoutManager())).findFirstCompletelyVisibleItemPosition() == 0;
+
     }
 
-    public boolean isScrolledToBottom() {
-        return getLayoutManager() instanceof LinearLayoutManager
-                && ((LinearLayoutManager) (getLayoutManager())).findLastCompletelyVisibleItemPosition() == (getAdapter().getItemCount() - 1);
-    }
-
-
-
-    @Override
-    public void setLayoutManager(LayoutManager layout) {
-        mLm = layout;
-        super.setLayoutManager(layout);
-    }
 
     float downY = 0;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
-
         boolean isRVScroll =
                 mScrollViewWithStickHeader.isBottom() || (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop());
-
         if (action == MotionEvent.ACTION_DOWN) {
             downY = ev.getY();
             LayoutManager layoutManager = getLayoutManager();
@@ -96,70 +68,5 @@ public class ChildRecyclerView extends RecyclerView {
         }
         return super.dispatchTouchEvent(ev);
     }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-
-        Log.d(TAG, "onTouchEvent: ");
-        return super.onTouchEvent(ev);
-    }
-
-    //    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        if (mScrollViewWithStickHeader == null) return super.onTouchEvent(event);
-//        int action = event.getAction();
-////        if (action == MotionEvent.ACTION_DOWN) {
-////            boolean isRVScroll =
-////                    mScrollViewWithStickHeader.isBottom() || (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop());
-////            mLastX = event.getX();
-////            mLastY = event.getY();
-////            //首先判断外层ScrollView是否滑动到底部
-////            if (isRVScroll) {
-////                getParent().requestDisallowInterceptTouchEvent(true);
-////                return super.onTouchEvent(event);
-////            } else {
-////                //拦截事件 本身不处理
-////                getParent().requestDisallowInterceptTouchEvent(false);
-////                return false;
-////            }
-////        }
-////        if (action == MotionEvent.ACTION_MOVE) {
-////            float nowY = event.getY();
-////            if (mScrollViewWithStickHeader.isBottom() && !isScrolledToBottom() && nowY - mLastY < 0) {
-////                if (Math.abs(event.getX() - mLastX) < minPageSlop) {
-////                    getParent().requestDisallowInterceptTouchEvent(true);
-////                    return super.onTouchEvent(event);
-////                } else {
-////                    getParent().requestDisallowInterceptTouchEvent(true);
-////                    return false;
-////                }
-////            } else if (mScrollViewWithStickHeader.isBottom() && !isScrolledToTop() && nowY - mLastY > 0) {
-////                if (Math.abs(event.getX() - mLastX) < minPageSlop) {
-////                    getParent().requestDisallowInterceptTouchEvent(true);
-////                    return super.onTouchEvent(event);
-////                } else {
-////                    getParent().requestDisallowInterceptTouchEvent(true);
-////                    return false;
-////                }
-////            } else {
-////                getParent().requestDisallowInterceptTouchEvent(false);
-////            }
-////        }
-////
-////        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
-////            getParent().requestDisallowInterceptTouchEvent(false);
-////            if (mScrollViewWithStickHeader.isNeedAutoScroll())
-////                mScrollViewWithStickHeader.startScrollerTask();
-////        }
-////
-////        return super.onTouchEvent(event);
-//
-//        if (action == MotionEvent.ACTION_DOWN) {
-//            boolean isRVScroll =
-//                    mScrollViewWithStickHeader.isBottom() || (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop());
-//            getParent().requestDisallowInterceptTouchEvent(isRVScroll);
-//        }
-//        return super.onTouchEvent(event);
-//    }
 
 }
