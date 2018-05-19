@@ -116,7 +116,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
                 vpLp.height = vpHeight;
                 tempViewPager.setLayoutParams(vpLp);
 
-                ViewUtil.findChildViews(mListViews,ScrollViewWithStickHeader.this,ChildRecyclerView.class);
+                ViewUtil.findChildViews(mListViews, ScrollViewWithStickHeader.this, ChildRecyclerView.class);
 
             }
         });
@@ -148,7 +148,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
                     "use with ViewPager||ChildScrollView||ChildRecyclerView||ChildWebView");
         return tempViewPager;
     }
-
 
 
     private ChildRecyclerView getRV(MotionEvent ev) {
@@ -201,11 +200,17 @@ public class ScrollViewWithStickHeader extends ScrollView {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         ChildRecyclerView childRecyclerView = getRV(ev);
+
         if (childRecyclerView != null) {
             int action = ev.getAction();
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
                     downY = ev.getY();
+                    boolean isRVScroll =
+                            isBottom() || (isBottom() && !childRecyclerView.isScrolledToTop());
+                    if (!isRVScroll) {
+                        return true;
+                    }
                     break;
                 case MotionEvent.ACTION_MOVE:
                     if (isBottom()) {

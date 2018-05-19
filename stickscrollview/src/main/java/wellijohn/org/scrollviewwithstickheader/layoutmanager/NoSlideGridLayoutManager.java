@@ -10,6 +10,7 @@ import android.util.AttributeSet;
  * @email: jiangweiwei@qccr.com
  * @desc:
  */
+@Deprecated
 public class NoSlideGridLayoutManager extends GridLayoutManager {
     private boolean isCanVerScroll;
 

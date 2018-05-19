@@ -5,10 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.View;
-
-import wellijohn.org.scrollviewwithstickheader.layoutmanager.NoSlideLinearLayoutManager;
 
 /**
  * @author: JiangWeiwei
@@ -18,8 +14,6 @@ import wellijohn.org.scrollviewwithstickheader.layoutmanager.NoSlideLinearLayout
  */
 public class ChildRecyclerView extends RecyclerView {
     private static final String TAG = "MyRecyclerView";
-
-    private ScrollViewWithStickHeader mScrollViewWithStickHeader;
 
     public ChildRecyclerView(Context context) {
         this(context, null, 0);
@@ -31,17 +25,6 @@ public class ChildRecyclerView extends RecyclerView {
 
     public ChildRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setFocusableInTouchMode(false);
-        post(new Runnable() {
-            @Override
-            public void run() {
-                View tempView = ChildRecyclerView.this;
-                while (!(tempView.getParent() instanceof ScrollViewWithStickHeader)) {
-                    tempView = (View) tempView.getParent();
-                }
-                mScrollViewWithStickHeader = (ScrollViewWithStickHeader) tempView.getParent();
-            }
-        });
     }
 
 
@@ -49,24 +32,6 @@ public class ChildRecyclerView extends RecyclerView {
         return getLayoutManager() instanceof LinearLayoutManager &&
                 ((LinearLayoutManager) (getLayoutManager())).findFirstCompletelyVisibleItemPosition() == 0;
 
-    }
-
-
-    float downY = 0;
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        int action = ev.getAction();
-        boolean isRVScroll =
-                mScrollViewWithStickHeader.isBottom() || (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop());
-        if (action == MotionEvent.ACTION_DOWN) {
-            downY = ev.getY();
-            LayoutManager layoutManager = getLayoutManager();
-            if (layoutManager instanceof NoSlideLinearLayoutManager) {
-                ((NoSlideLinearLayoutManager) layoutManager).setCanVerScroll(isRVScroll);
-            }
-        }
-        return super.dispatchTouchEvent(ev);
     }
 
 }
