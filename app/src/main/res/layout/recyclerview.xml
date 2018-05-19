@@ -36,14 +36,14 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.RecyclerView
+        <wellijohn.org.scrollviewwithstickheader.ChildRecyclerView
             android:id="@+id/child_recyclerview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#EEEEEE" />
 
-        <android.support.v7.widget.RecyclerView
+        <wellijohn.org.scrollviewwithstickheader.ChildRecyclerView
             android:id="@+id/child_recyclerview_right"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

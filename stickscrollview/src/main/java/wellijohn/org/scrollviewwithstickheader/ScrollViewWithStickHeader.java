@@ -206,11 +206,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
                     downY = ev.getY();
-                    boolean isRVScroll =
-                            isBottom() || (isBottom() && !ViewUtil.isScrolledToTop(childRecyclerView));
-                    if (!isRVScroll) {
-                        return true;
-                    }
                     break;
                 case MotionEvent.ACTION_MOVE:
                     if (isBottom()) {
