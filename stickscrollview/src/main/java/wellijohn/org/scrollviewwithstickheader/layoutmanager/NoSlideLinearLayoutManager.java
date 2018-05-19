@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
  * @email: jiangweiwei@qccr.com
  * @desc:
  */
-@Deprecated
 public class NoSlideLinearLayoutManager extends LinearLayoutManager {
 
     private boolean isCanVerScroll = true;
