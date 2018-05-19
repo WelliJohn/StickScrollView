@@ -49,7 +49,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
     private Rect rect = new Rect();
     private ArrayList<View> mSuspensionViews = new ArrayList<>();
 
-    private ArrayList<ChildRecyclerView> mListViews = new ArrayList<>();
+    private ArrayList<RecyclerView> mListViews = new ArrayList<>();
 
 
     public ScrollViewWithStickHeader(Context context) {
@@ -116,7 +116,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
                 vpLp.height = vpHeight;
                 tempViewPager.setLayoutParams(vpLp);
 
-                ViewUtil.findChildViews(mListViews, ScrollViewWithStickHeader.this, ChildRecyclerView.class);
+                ViewUtil.findChildViews(mListViews, ScrollViewWithStickHeader.this, RecyclerView.class);
 
             }
         });
@@ -145,13 +145,13 @@ public class ScrollViewWithStickHeader extends ScrollView {
 
         if (tempViewPager == null)
             throw new IllegalStateException("ScrollViewWithStickHeader must" +
-                    "use with ViewPager||ChildScrollView||ChildRecyclerView||ChildWebView");
+                    "use with ViewPager||ChildScrollView||RecyclerView||ChildWebView");
         return tempViewPager;
     }
 
 
-    private ChildRecyclerView getRV(MotionEvent ev) {
-        for (ChildRecyclerView childRecyclerView : mListViews) {
+    private RecyclerView getRV(MotionEvent ev) {
+        for (RecyclerView childRecyclerView : mListViews) {
             if (UIUtil.inRangeOfView(childRecyclerView, ev)) return childRecyclerView;
         }
         return null;
@@ -199,7 +199,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        ChildRecyclerView childRecyclerView = getRV(ev);
+        RecyclerView childRecyclerView = getRV(ev);
 
         if (childRecyclerView != null) {
             int action = ev.getAction();
@@ -207,14 +207,14 @@ public class ScrollViewWithStickHeader extends ScrollView {
                 case MotionEvent.ACTION_DOWN:
                     downY = ev.getY();
                     boolean isRVScroll =
-                            isBottom() || (isBottom() && !childRecyclerView.isScrolledToTop());
+                            isBottom() || (isBottom() && !ViewUtil.isScrolledToTop(childRecyclerView));
                     if (!isRVScroll) {
                         return true;
                     }
                     break;
                 case MotionEvent.ACTION_MOVE:
                     if (isBottom()) {
-                        return !(ev.getY() - downY < 0) && childRecyclerView.isScrolledToTop();
+                        return !(ev.getY() - downY < 0) && ViewUtil.isScrolledToTop(childRecyclerView);
                     }
                     break;
 

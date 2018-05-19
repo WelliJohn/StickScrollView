@@ -1,5 +1,7 @@
 package wellijohn.org.scrollviewwithstickheader.utils;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -48,5 +50,11 @@ public class ViewUtil {
             }
         }
         return views;
+    }
+
+    public static boolean isScrolledToTop(RecyclerView rv) {
+        return rv.getLayoutManager() instanceof LinearLayoutManager &&
+                ((LinearLayoutManager) (rv.getLayoutManager())).findFirstCompletelyVisibleItemPosition() == 0;
+
     }
 }

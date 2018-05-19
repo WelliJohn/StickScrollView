@@ -67,14 +67,14 @@ dependencies {
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <wellijohn.org.stickscrollview.ChildRecyclerView
+    <RecyclerView
         android:id="@+id/child_recyclerview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="#EEEEEE" />
 
-    <wellijohn.org.stickscrollview.ChildRecyclerView//LinearLayoutManager需要继承NoSlideLinearLayoutManager,GridLayoutManager需要继承NoSlideGridLayoutManager。
+    <RecyclerView
         android:id="@+id/child_recyclerview_right"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -91,7 +91,7 @@ mStickScrollView.setSuspensionView(mViewBottom);//这个是底部的悬浮布局
 
 ## 5.注意事项
 * ScrollViewWithStickHeader内部目前支持放置ViewPager，ScrollView，RecyclerView，WebView
-* ScrollView，RecyclerView，WebView需要对应使用ChildScrollView，ChildRecyclerView，ChildWebView
+* ScrollView，RecyclerView，WebView需要对应使用ChildScrollView，RecyclerView，ChildWebView
 * 我们在使用的时候，需要调用mStickScrollView.setContentView(mContentView);mLLStickList就是我们需要StickHeader+列表的部分，如果你没有StickHeader的话，那么直接设置列表进来也可以，总之，你想滑动到哪个位置接下来滑动就是单纯下面的部分滑动，那你就把下面的View整体设置为mContentView。刚刚那个的ContentView是id为ll_stick_list的View。
 * 另外在这里ScrollViewWithStickHeader增加autoscroll属性，默认是关闭的，如果autoscroll:true的话，在我们手指放开的时候，contentView会判断是否自动滑动到顶部还是隐藏不见。
 * 暂不支持weight的使用，因为weight会进行二次绘制，所以如果要实现底部bottom的话，请用RelativeiLayout

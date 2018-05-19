@@ -2,7 +2,6 @@ package wellijohn.org.scrollviewwithstickheader;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
@@ -12,6 +11,7 @@ import android.util.AttributeSet;
  * @email:
  * @desc:
  */
+@Deprecated
 public class ChildRecyclerView extends RecyclerView {
     private static final String TAG = "MyRecyclerView";
 
@@ -27,11 +27,5 @@ public class ChildRecyclerView extends RecyclerView {
         super(context, attrs, defStyle);
     }
 
-
-    public boolean isScrolledToTop() {
-        return getLayoutManager() instanceof LinearLayoutManager &&
-                ((LinearLayoutManager) (getLayoutManager())).findFirstCompletelyVisibleItemPosition() == 0;
-
-    }
 
 }
