@@ -155,7 +155,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
         for (ChildRecyclerView childRecyclerView : mListViews) {
             if (UIUtil.inRangeOfView(childRecyclerView, ev)) return childRecyclerView;
         }
-        return mListViews.get(0);
+        return null;
     }
 
 
