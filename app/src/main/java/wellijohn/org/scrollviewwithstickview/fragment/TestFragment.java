@@ -70,8 +70,6 @@ public class TestFragment extends LazyFragment {
     private void initView(View view) {
         mChildRecyclerview = (ChildRecyclerView) view.findViewById(R.id.child_recyclerview);
         mChildRecyclerviewRight = (ChildRecyclerView) view.findViewById(R.id.child_recyclerview_right);
-        mParentActivity.setRV(mChildRecyclerviewRight);
-        mParentActivity.setRV(mChildRecyclerview);
     }
 
     public static Fragment newInstance(int position) {

@@ -15,7 +15,7 @@ allprojects {
 }
 
 dependencies {
-    com.github.WelliJohn:StickScrollView:1.1.0
+    com.github.WelliJohn:StickScrollView:1.1.1
 }
 ```
 
@@ -87,7 +87,6 @@ dependencies {
 ```
 mStickScrollView.setContentView(mLLStickList);//这个是必须的，mLLStickList就是你想到这个布局再滑动就是下面列表滑动的部分了。
 mStickScrollView.setSuspensionView(mViewBottom);//这个是底部的悬浮布局，如果没有可以不设置
-mStickScrollView.setRV(childRecyclerView);//用了ChildRecyclerView的话，需要调用改方法，是一个list，你把用到的childRecyclerView都调用下就好了
 ```
 
 ## 5.注意事项

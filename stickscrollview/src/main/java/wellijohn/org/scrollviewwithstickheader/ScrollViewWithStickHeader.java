@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import wellijohn.org.scrollviewwithstickheader.utils.UIUtil;
+import wellijohn.org.scrollviewwithstickheader.utils.ViewUtil;
 
 /**
  * @author: JiangWeiwei
@@ -115,6 +116,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
                 vpLp.height = vpHeight;
                 tempViewPager.setLayoutParams(vpLp);
 
+                ViewUtil.findChildViews(mListViews,ScrollViewWithStickHeader.this,ChildRecyclerView.class);
 
             }
         });
@@ -127,18 +129,18 @@ public class ScrollViewWithStickHeader extends ScrollView {
     }
 
     private View getView() {
-        View tempViewPager = findChildView(ScrollViewWithStickHeader.this, ViewPager.class);
+        View tempViewPager = ViewUtil.findChildView(ScrollViewWithStickHeader.this, ViewPager.class);
 
         if (tempViewPager == null) {
-            tempViewPager = findChildView(ScrollViewWithStickHeader.this, RecyclerView.class);
+            tempViewPager = ViewUtil.findChildView(ScrollViewWithStickHeader.this, RecyclerView.class);
         }
 
         if (tempViewPager == null) {
-            tempViewPager = findChildView(ScrollViewWithStickHeader.this, ScrollView.class);
+            tempViewPager = ViewUtil.findChildView(ScrollViewWithStickHeader.this, ScrollView.class);
         }
 
         if (tempViewPager == null) {
-            tempViewPager = findChildView(ScrollViewWithStickHeader.this, WebView.class);
+            tempViewPager = ViewUtil.findChildView(ScrollViewWithStickHeader.this, WebView.class);
         }
 
         if (tempViewPager == null)
@@ -162,26 +164,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
         ScrollViewWithStickHeader.this.postDelayed(scrollerTask, newCheck);
     }
 
-    private <T extends View> T findChildView(View paramView, Class<T> t) {
-        View childView;
-        if (paramView instanceof ViewGroup) {
-            ViewGroup tempVg = (ViewGroup) paramView;
-            int count = tempVg.getChildCount();
-            for (int index = 0; index < count; index++) {
-                View tempView = tempVg.getChildAt(index);
-                if (t.isInstance(tempView)) {
-                    childView = tempView;
-                    return (T) childView;
-                } else if (tempView instanceof ViewGroup) {
-                    View view = findChildView(tempView, t);
-                    if (view != null) {
-                        return (T) view;
-                    }
-                }
-            }
-        }
-        return null;
-    }
 
     public boolean isBottom() {
         return isChildToBottom;
@@ -252,11 +234,5 @@ public class ScrollViewWithStickHeader extends ScrollView {
     public void setSuspensionView(View... paramView) {
         mSuspensionViews.addAll(Arrays.asList(paramView));
     }
-
-    public void setRV(ChildRecyclerView rv) {
-        mListViews.add(rv);
-    }
-
-
 
 }
