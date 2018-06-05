@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import java.util.List;
 
@@ -56,5 +57,9 @@ public class ViewUtil {
         return rv.getLayoutManager() instanceof LinearLayoutManager &&
                 ((LinearLayoutManager) (rv.getLayoutManager())).findFirstCompletelyVisibleItemPosition() == 0;
 
+    }
+
+    public static boolean isScrolledToTop(ScrollView scrollView) {
+        return scrollView.getScrollY() == 0;
     }
 }

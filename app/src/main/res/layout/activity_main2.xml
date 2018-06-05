@@ -6,4 +6,15 @@
     android:layout_height="match_parent"
     tools:context="wellijohn.org.scrollviewwithstickview.Main2Activity">
 
+
+    <wellijohn.org.scrollviewwithstickheader.ScrollViewWithStickHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <wellijohn.org.scrollviewwithstickheader.ChildScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </wellijohn.org.scrollviewwithstickheader.ChildScrollView>
+    </wellijohn.org.scrollviewwithstickheader.ScrollViewWithStickHeader>
+
 </android.support.constraint.ConstraintLayout>

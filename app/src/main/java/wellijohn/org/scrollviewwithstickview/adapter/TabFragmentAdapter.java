@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import wellijohn.org.scrollviewwithstickview.fragment.TestFragment;
+import wellijohn.org.scrollviewwithstickview.fragment.ChildScrollViewFragment;
 
 /**
  * @author: JiangWeiwei
@@ -21,7 +21,7 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return TestFragment.newInstance(position);
+        return ChildScrollViewFragment.newInstance(position);
     }
 
     @Override

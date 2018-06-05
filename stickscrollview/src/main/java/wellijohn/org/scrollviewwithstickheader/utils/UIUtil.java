@@ -32,6 +32,7 @@ public class UIUtil {
 
     /**
      * 点击的位置是否在view中
+     *
      * @param view
      * @param ev
      * @return
@@ -41,8 +42,8 @@ public class UIUtil {
         view.getLocationOnScreen(location);
         int x = location[0];
         int y = location[1];
-        if (ev.getX() < x || ev.getX() > (x + view.getWidth()) || ev.getY() < y
-                || ev.getY() > (y + view.getHeight())) {
+        if (ev.getX() < x || ev.getRawX() > (x + view.getWidth()) || ev.getRawY() < y
+                || ev.getRawY() > (y + view.getHeight())) {
             return false;
         }
         return true;

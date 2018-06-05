@@ -24,7 +24,7 @@ import wellijohn.org.scrollviewwithstickview.listener.OnRVItemClickListener;
  * @email:
  * @desc:
  */
-public class TestFragment extends LazyFragment {
+public class ChildRecyclerViewFragment extends LazyFragment {
     private static final String KEY_FRAGMENT_INT = "KEY_FRAGMENT_INT";
     private RecyclerView mChildRecyclerview;
     private RecyclerView mChildRecyclerviewRight;
@@ -72,7 +72,7 @@ public class TestFragment extends LazyFragment {
     }
 
     public static Fragment newInstance(int position) {
-        TestFragment fragment = new TestFragment();
+        ChildRecyclerViewFragment fragment = new ChildRecyclerViewFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_FRAGMENT_INT, position);
         fragment.setArguments(bundle);

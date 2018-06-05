@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -28,7 +29,8 @@ import wellijohn.org.scrollviewwithstickheader.utils.ViewUtil;
  */
 public class ScrollViewWithStickHeader extends ScrollView {
 
-    private final int minPageSlop;
+    private int minPageSlop;
+    private int minSlop;
     private boolean isChildToBottom;
 
     private View mAutoFillView;
@@ -50,6 +52,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
     private ArrayList<View> mSuspensionViews = new ArrayList<>();
 
     private ArrayList<RecyclerView> mListViews = new ArrayList<>();
+    private ArrayList<ChildScrollView> mScrollViews = new ArrayList<>();
 
 
     public ScrollViewWithStickHeader(Context context) {
@@ -63,6 +66,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
     public ScrollViewWithStickHeader(final Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         minPageSlop = ViewConfiguration.get(getContext()).getScaledPagingTouchSlop();
+        minSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
         TypedArray ta = context.getResources().obtainAttributes(attrs, R.styleable.ScrollViewWithStickHeader);
         mIsNeedAutoScroll = ta.getBoolean(R.styleable.ScrollViewWithStickHeader_autoscroll, false);
         ta.recycle();
@@ -117,6 +121,7 @@ public class ScrollViewWithStickHeader extends ScrollView {
                 tempViewPager.setLayoutParams(vpLp);
 
                 ViewUtil.findChildViews(mListViews, ScrollViewWithStickHeader.this, RecyclerView.class);
+                ViewUtil.findChildViews(mScrollViews, ScrollViewWithStickHeader.this, ChildScrollView.class);
 
             }
         });
@@ -147,14 +152,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
             throw new IllegalStateException("ScrollViewWithStickHeader must" +
                     "use with ViewPager||ChildScrollView||RecyclerView||ChildWebView");
         return tempViewPager;
-    }
-
-
-    private RecyclerView getRV(MotionEvent ev) {
-        for (RecyclerView childRecyclerView : mListViews) {
-            if (UIUtil.inRangeOfView(childRecyclerView, ev)) return childRecyclerView;
-        }
-        return null;
     }
 
 
@@ -196,26 +193,55 @@ public class ScrollViewWithStickHeader extends ScrollView {
 
 
     float downY = 0;
+    float downX = 0;
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         RecyclerView childRecyclerView = getRV(ev);
-
+        ChildScrollView childScrollView = getSV(ev);
+        int action = ev.getAction();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                downY = ev.getY();
+                downX = ev.getX();
+                break;
+        }
         if (childRecyclerView != null) {
-            int action = ev.getAction();
             switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                    downY = ev.getY();
-                    break;
                 case MotionEvent.ACTION_MOVE:
+                    if (Math.abs(downX - ev.getX()) >= minPageSlop) return false;
                     if (isBottom()) {
                         return !(ev.getY() - downY < 0) && ViewUtil.isScrolledToTop(childRecyclerView);
                     }
                     break;
-
             }
         }
+        if (childScrollView != null) {
+            switch (action) {
+                case MotionEvent.ACTION_MOVE:
+                    boolean vpScroll = Math.abs(downX - ev.getX()) >= minPageSlop;
+                    Log.d(Constant.KEY_TAG, "vpScroll: " + vpScroll);
+                    if (isBottom()) {
+                        return !(ev.getY() - downY < 0) && ViewUtil.isScrolledToTop(childScrollView);
+                    }
+            }
+        }
+
         return super.onInterceptTouchEvent(ev);
+    }
+
+    private RecyclerView getRV(MotionEvent ev) {
+        for (RecyclerView childRecyclerView : mListViews) {
+            if (UIUtil.inRangeOfView(childRecyclerView, ev)) return childRecyclerView;
+        }
+        return null;
+    }
+
+    private ChildScrollView getSV(MotionEvent ev) {
+        for (ChildScrollView childScrollView : mScrollViews) {
+            if (UIUtil.inRangeOfView(childScrollView, ev)) return childScrollView;
+        }
+        return null;
     }
 
 

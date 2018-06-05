@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wellijohn.org.scrollviewwithstickheader.ChildScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@color/btn_green_big_bg"
+            android:text="我是ChildScrollView"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="网易科技讯 6月5日消息，微软宣布用价值75亿美元的股票收购软件代码托管网站GitHub，交易预计今年年底完成。2015年，GitHub的估值是20亿美元。此前媒体股价交易价格为50亿美元。
+
+这是纳德拉担任微软CEO之后的第二大交易。2016年，微软以262亿美元收购LinkedIn。（网易编辑注：巧合的是，两笔交易都是在苹果WWDC开幕当日宣布的。）
+
+GitHub是个广受软件开发人员欢迎的平台，允许编程人员共享代码和协作。
+
+此前，据彭博社报道，不愿透露姓名的消息人士表示，GitHub之所以选择出售而不是上市，部分原因在于微软首席执行官萨蒂亚·纳德拉(Satya Nadella)给他们留下了深刻印象。
+
+此次收购为总部位于旧金山的GitHub提供了一条前进之路。2017年8月份，GitHub宣布正在物色一位首席执行官，以接替公司联合创始人克里斯·沃斯特拉特(Chris Wanstrath)，但至今没有如愿。在此期间，GitHub的首席商务官胡里奥·阿瓦洛斯(Julio Avalos)加入了公司的董事会，并接手了公司的大部分日常领导工作。并且收购GitHub对微软也有帮助，因为微软越来越依赖开源软件，它可以借此添加编程工具，并与为微软编写自家软件关键部分的公司紧密联系起来。
+
+GitHub是程序员必不可少的工具。包括微软、Alphabet旗下谷歌等许多公司，都使用GitHub存储公司代码并进行协作。GitHub也是开发者的社交网络，但迄今尚未从其广受欢迎的服务中获利。GitHub在2016年的三个季度亏损了6600万美元，而在那九个月里，它的营收为9800万美元。
+
+微软和GitHub断断续续进行了数年谈判。知情人士表示，最近他们开始讨论合作事宜，但后来又谈到了收购事宜。
+
+GitHub拥有2700万软件开发人员，开发了8000万个代码库。曾经反对开源软件开发的微软，如今却成了GitHub的最大贡献者之一。随着纳德拉带领公司开始摆脱对Windows操作系统的完全依赖，转向更多内部的Linux开发，该公司需要新的方式与更广泛的开发人员社区联系起来。"
+            android:textSize="16sp" />
+    </LinearLayout>
+</wellijohn.org.scrollviewwithstickheader.ChildScrollView>
