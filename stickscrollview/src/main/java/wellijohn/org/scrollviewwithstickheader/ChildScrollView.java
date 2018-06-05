@@ -84,20 +84,6 @@ public class ChildScrollView extends ScrollView {
 
     float downY;
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        int action = ev.getAction();
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                if(mScrollViewWithStickHeader.isBottom())
-                break;
-            case MotionEvent.ACTION_MOVE:
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
