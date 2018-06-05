@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -209,7 +208,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
         if (childRecyclerView != null) {
             switch (action) {
                 case MotionEvent.ACTION_MOVE:
-                    if (Math.abs(downX - ev.getX()) >= minPageSlop) return false;
                     if (isBottom()) {
                         return !(ev.getY() - downY < 0) && ViewUtil.isScrolledToTop(childRecyclerView);
                     }
@@ -219,8 +217,6 @@ public class ScrollViewWithStickHeader extends ScrollView {
         if (childScrollView != null) {
             switch (action) {
                 case MotionEvent.ACTION_MOVE:
-                    boolean vpScroll = Math.abs(downX - ev.getX()) >= minPageSlop;
-                    Log.d(Constant.KEY_TAG, "vpScroll: " + vpScroll);
                     if (isBottom()) {
                         return !(ev.getY() - downY < 0) && ViewUtil.isScrolledToTop(childScrollView);
                     }
