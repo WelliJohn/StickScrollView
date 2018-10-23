@@ -3,6 +3,7 @@ package wellijohn.org.scrollviewwithstickheader;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -26,6 +27,7 @@ public class ChildScrollView extends ScrollView {
     private ScrollViewWithStickHeader mScrollViewWithStickHeader;
 
     private int minSlop;
+    private int minPageSlop;
 
     private float mLastX;
 
@@ -53,6 +55,7 @@ public class ChildScrollView extends ScrollView {
             }
         });
         minSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        minPageSlop = ViewConfiguration.get(getContext()).getScaledPagingTouchSlop();
     }
 
     @Override
@@ -84,6 +87,67 @@ public class ChildScrollView extends ScrollView {
 
     float downY;
 
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (mScrollViewWithStickHeader == null) {
+            return super.onTouchEvent(event);
+        }
+        int action = event.getAction();
+
+        if (action == MotionEvent.ACTION_DOWN) {
+            Log.d(Constant.KEY_TAG, "dispatchTouchEvent: ACTION_DOWN");
+            mLastX = event.getX();
+            mLastY = event.getY();
+            //首先判断外层ScrollView是否滑动到底部
+            if (mScrollViewWithStickHeader.isBottom()) {
+                getParent().requestDisallowInterceptTouchEvent(true);
+                return super.dispatchTouchEvent(event);
+            } /*else {
+			//拦截事件 本身不处理
+			getParent().requestDisallowInterceptTouchEvent(false);
+			return false;
+		}*/
+            return super.dispatchTouchEvent(event);
+        }
+        if (action == MotionEvent.ACTION_MOVE) {
+            Log.d(Constant.KEY_TAG, "dispatchTouchEvent: ACTION_MOVE");
+            float nowY = event.getY();
+            if (!mScrollViewWithStickHeader.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
+                if (Math.abs(event.getX() - mLastX) < minPageSlop) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    return super.dispatchTouchEvent(event);
+                } else {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    return false;
+                }
+            } else if (mScrollViewWithStickHeader.isBottom() && !isScrolledToBottom && nowY - mLastY < 0) {
+                if (Math.abs(event.getX() - mLastX) < minPageSlop) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    return super.dispatchTouchEvent(event);
+                } else {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    return false;
+                }
+            } else if (mScrollViewWithStickHeader.isBottom() && !isScrolledToTop && nowY - mLastY > 0) {
+                if (Math.abs(event.getX() - mLastX) < minPageSlop) {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    return super.dispatchTouchEvent(event);
+                } else {
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    return false;
+                }
+            } else {
+                getParent().requestDisallowInterceptTouchEvent(false);
+            }
+        }
+
+        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
+            Log.d(Constant.KEY_TAG, "dispatchTouchEvent: ACTION_UP/ACTION_CANCEL");
+            getParent().requestDisallowInterceptTouchEvent(false);
+        }
+        return super.dispatchTouchEvent(event);
+    }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {

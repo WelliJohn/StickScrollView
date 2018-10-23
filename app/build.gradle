@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 28
     defaultConfig {
         applicationId "wellijohn.org.scrollviewwithstickview"
         minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 3
-        versionName "1.2"
+        targetSdkVersion 28
+        versionCode 5
+        versionName "1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -25,13 +25,13 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:25.4.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:recyclerview-v7:25.4.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation project(':stickscrollview')
-//    implementation 'com.github.WelliJohn:StickScrollView:1.1.6'
+//    implementation 'com.github.WelliJohn:StickScrollView:1.1.7'
 //    compile 'wellijohn.org.tvanim:animtv:1.0.0'
-    implementation 'com.android.support:design:25.4.0'
+    implementation 'com.android.support:design:27.1.1'
 
 //    implementation 'com.github.WelliJohn:StickScrollView:0.0.1'
 

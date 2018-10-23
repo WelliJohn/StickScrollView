@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import wellijohn.org.scrollviewwithstickview.fragment.ChildRecyclerViewFragment;
+import wellijohn.org.scrollviewwithstickview.fragment.RecyclerViewFragment;
 
 /**
  * @author: JiangWeiwei
@@ -21,7 +21,8 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ChildRecyclerViewFragment.newInstance(position);
+//        return ChildRecyclerViewFragment.newInstance(position);
+        return RecyclerViewFragment.newInstance(position);
     }
 
     @Override

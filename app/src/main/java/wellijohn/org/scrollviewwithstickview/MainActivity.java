@@ -1,11 +1,13 @@
 package wellijohn.org.scrollviewwithstickview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         initUI();
         mStickScrollView.setContentView(mLLStickList);
         mStickScrollView.setSuspensionView(mViewBottom);
+
+        startActivity(new Intent(this,AndroidWidgetActivity.class));
     }
 
     private void initUI() {
@@ -56,10 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 new TabLayout.TabLayoutOnPageChangeListener(mOrderManagerTabs));
         mVp.setOffscreenPageLimit(3);
         mOrderManagerTabs.setupWithViewPager(mVp);
-//        WebSettings webSettings = mWebview.getSettings();
-//        //设置WebView属性，能够执行Javascript脚本
-//        webSettings.setJavaScriptEnabled(true);
-//        mWebview.loadUrl("https://segmentfault.com/u/wellijhon_58622d2f61c2d");
+        WebSettings webSettings = mWebview.getSettings();
+        //设置WebView属性，能够执行Javascript脚本
+        webSettings.setJavaScriptEnabled(true);
+        mWebview.loadUrl("https://segmentfault.com/u/wellijhon_58622d2f61c2d");
 
 //        Log.d(TAG, "initUI: " + (mLl.getDescendantFocusability() == ViewGroup.FOCUS_BLOCK_DESCENDANTS));
     }

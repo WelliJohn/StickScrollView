@@ -214,14 +214,14 @@ public class ScrollViewWithStickHeader extends ScrollView {
                     break;
             }
         }
-        if (childScrollView != null) {
-            switch (action) {
-                case MotionEvent.ACTION_MOVE:
-                    if (isBottom()) {
-                        return !(ev.getY() - downY < 0) && ViewUtil.isScrolledToTop(childScrollView);
-                    }
-            }
-        }
+//        if (childScrollView != null) {
+//            switch (action) {
+//                case MotionEvent.ACTION_MOVE:
+//                    if (isBottom()) {
+//                        return !(ev.getY() - downY < 0) && ViewUtil.isScrolledToTop(childScrollView);
+//                    }
+//            }
+//        }
 
         return super.onInterceptTouchEvent(ev);
     }

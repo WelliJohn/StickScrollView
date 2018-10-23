@@ -10,7 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 
+import wellijohn.org.scrollviewwithstickheader.ChildWebView;
 import wellijohn.org.scrollviewwithstickheader.layoutmanager.NoSlideLinearLayoutManager;
 import wellijohn.org.scrollviewwithstickview.MainActivity;
 import wellijohn.org.scrollviewwithstickview.R;
@@ -35,11 +37,12 @@ public class ChildRecyclerViewFragment extends LazyFragment {
     private int mOldLeftIndex;
     private RecyclerViewListener mRecyclerViewListener;
     private MainActivity mParentActivity;
+    private ChildWebView webview;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context !=null&&context instanceof MainActivity){
+        if (context != null && context instanceof MainActivity) {
             mParentActivity = (MainActivity) context;
         }
     }
@@ -63,12 +66,17 @@ public class ChildRecyclerViewFragment extends LazyFragment {
 //                mChildRecyclerviewRight.setLayoutParams(layoutParams);
 //            }
 //        });
+
+        WebSettings settings = webview.getSettings();
+        settings.setJavaScriptEnabled(true);
+        webview.loadUrl("https://www.baidu.com/?tn=22073068_oem_dg");
     }
 
 
     private void initView(View view) {
         mChildRecyclerview = (RecyclerView) view.findViewById(R.id.child_recyclerview);
         mChildRecyclerviewRight = (RecyclerView) view.findViewById(R.id.child_recyclerview_right);
+        webview = (ChildWebView) view.findViewById(R.id.webview);
     }
 
     public static Fragment newInstance(int position) {
@@ -78,7 +86,6 @@ public class ChildRecyclerViewFragment extends LazyFragment {
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
 
     class RecyclerViewListener extends RecyclerView.OnScrollListener {
