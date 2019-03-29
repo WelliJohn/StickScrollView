@@ -1,4 +1,6 @@
 **前言，一天在点外卖的时候，注意到饿了么列表页的滑动效果不错，但是觉得其中的手势滑动还是挺复杂的，正好又碰到了在熟悉Touch事件的理解当中，所以就抽空对着饿了么的列表页面尝试写写这个效果，同时增加了双列表的联动效果**
+## 在实现上述效果之后，用了下appbarlayout,觉得也能实现上述滑动的效果，不需要更改什么代码，体验上更好，具体可以看AndroidWidgetActivity，在这里面就是CollapsingToolbarLayout和appbarlayout的使用，完成上述的效果，可以简单看下实现的效果图，如果你们觉得满足需求了就不需要继续往下看了，如果想了解下手势点击原理的话，欢迎往下看提点意见：
+
 ## APK下载地址
 ![stickscrollview](https://github.com/WelliJohn/StickScrollView/blob/master/imgs/QR_code_258%20.png?raw=true)
 ## 1.先贴一个实现的效果图
@@ -98,4 +100,6 @@ mStickScrollView.setSuspensionView(mViewBottom);//这个是底部的悬浮布局
 * 如果是用RecyclerView的话，LinearLayoutManager需要继承NoSlideLinearLayoutManager,GridLayoutManager需要继承NoSlideGridLayoutManager，new NoSlideLinearLayoutManager(context)。
 
 ![自动滚动的效果图](https://github.com/WelliJohn/StickScrollView/blob/master/imgs/scrollsnap.gif?raw=true)
+
+
 
